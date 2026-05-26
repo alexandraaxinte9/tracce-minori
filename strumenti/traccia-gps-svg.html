@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Traccia GPS → SVG</title>
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+				background: #f4f4f4;
+				color: #111;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 2rem 1rem;
+			}
+
+			h1 {
+				font-size: 1.25rem;
+				font-weight: 600;
+				margin: 0 0 0.5rem;
+			}
+
+			p.lead {
+				margin: 0 0 1.5rem;
+				color: #555;
+				font-size: 0.95rem;
+				text-align: center;
+				max-width: 28rem;
+			}
+
+			.dropzone {
+				width: min(100%, 32rem);
+				min-height: 10rem;
+				border: 2px dashed #999;
+				border-radius: 8px;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+				padding: 2rem;
+				cursor: pointer;
+				transition:
+					border-color 0.15s,
+					background 0.15s;
+			}
+
+			.dropzone:hover,
+			.dropzone.dragover {
+				border-color: #111;
+				background: #fafafa;
+			}
+
+			.dropzone strong {
+				font-size: 1rem;
+			}
+
+			.dropzone span {
+				font-size: 0.85rem;
+				color: #666;
+			}
+
+			.dropzone input {
+				display: none;
+			}
+
+			.status {
+				margin-top: 1rem;
+				font-size: 0.9rem;
+				min-height: 1.25rem;
+				color: #333;
+			}
+
+			.status.error {
+				color: #a00;
+			}
+
+			.preview-wrap {
+				margin-top: 2rem;
+				width: min(100%, 40rem);
+				display: none;
+				flex-direction: column;
+				align-items: center;
+				gap: 1rem;
+			}
+
+			.preview-wrap.visible {
+				display: flex;
+			}
+
+			.preview-box {
+				width: 100%;
+				background: repeating-conic-gradient(#ddd 0% 25%, #eee 0% 50%) 50% / 16px 16px;
+				border-radius: 8px;
+				padding: 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 12rem;
+			}
+
+			.preview-box svg {
+				max-width: 100%;
+				max-height: 24rem;
+				height: auto;
+			}
+
+			.actions {
+				display: flex;
+				gap: 0.75rem;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+
+			button {
+				font: inherit;
+				font-size: 0.9rem;
+				padding: 0.55rem 1.1rem;
+				border: 1px solid #111;
+				border-radius: 6px;
+				background: #111;
+				color: #fff;
+				cursor: pointer;
+			}
+
+			button.secondary {
+				background: #fff;
+				color: #111;
+			}
+
+			button:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Traccia GPS → SVG</h1>
+		<p class="lead">
+			Trascina qui un file <strong>.json</strong> con il tracciato GPS, oppure clicca per sceglierlo.
+		</p>
+
+		<label class="dropzone" id="dropzone">
+			<input type="file" id="file-input" accept=".json,application/json" />
+			<strong>Trascina il file JSON</strong>
+			<span>oppure clicca per aprire</span>
+		</label>
+
+		<p class="status" id="status" aria-live="polite"></p>
+
+		<div class="preview-wrap" id="preview-wrap">
+			<div class="preview-box" id="preview-box"></div>
+			<div class="actions">
+				<button type="button" id="download-btn" disabled>Scarica SVG</button>
+				<button type="button" class="secondary" id="reset-btn">Carica un altro file</button>
+			</div>
+		</div>
+
+		<script>
+			function parsePts(pts) {
+				const nums = pts
+					.split(',')
+					.map((s) => s.trim())
+					.filter(Boolean)
+					.map(Number);
+
+				if (nums.some(Number.isNaN)) {
+					throw new Error('Coordinate non valide nel campo "pts".');
+				}
+
+				const points = [];
+				for (let i = 0; i + 1 < nums.length; i += 2) {
+					points.push({ lat: nums[i], lon: nums[i + 1] });
+				}
+
+				if (points.length < 2) {
+					throw new Error('Servono almeno 2 punti per disegnare il percorso.');
+				}
+
+				return points;
+			}
+
+			function parseTrackJson(data) {
+				if (!data || typeof data !== 'object' || !('pts' in data)) {
+					throw new Error('File JSON non valido: manca il campo "pts".');
+				}
+
+				const pts = data.pts;
+				if (typeof pts !== 'string' || !pts.trim()) {
+					throw new Error('File JSON non valido: "pts" deve essere una stringa.');
+				}
+
+				return parsePts(pts);
+			}
+
+			function formatNum(n) {
+				return Number(n.toFixed(3)).toString();
+			}
+
+			function trackToSvg(points, options = {}) {
+				const { stroke = '#000000', strokeWidth = 2, targetSize = 1000 } = options;
+				const avgLat = points.reduce((sum, p) => sum + p.lat, 0) / points.length;
+				const cosLat = Math.cos((avgLat * Math.PI) / 180);
+
+				const projected = points.map((p) => ({
+					x: p.lon * cosLat,
+					y: -p.lat
+				}));
+
+				let minX = Infinity;
+				let maxX = -Infinity;
+				let minY = Infinity;
+				let maxY = -Infinity;
+
+				for (const p of projected) {
+					minX = Math.min(minX, p.x);
+					maxX = Math.max(maxX, p.x);
+					minY = Math.min(minY, p.y);
+					maxY = Math.max(maxY, p.y);
+				}
+
+				const rangeX = maxX - minX || 1e-9;
+				const rangeY = maxY - minY || 1e-9;
+				const scale = targetSize / Math.max(rangeX, rangeY);
+				const pad = strokeWidth / 2;
+
+				const coords = projected.map((p) => ({
+					x: (p.x - minX) * scale + pad,
+					y: (p.y - minY) * scale + pad
+				}));
+
+				const viewW = rangeX * scale + strokeWidth;
+				const viewH = rangeY * scale + strokeWidth;
+
+				const d = coords
+					.map((c, i) => `${i === 0 ? 'M' : 'L'} ${formatNum(c.x)} ${formatNum(c.y)}`)
+					.join(' ');
+
+				return (
+					'<?xml version="1.0" encoding="UTF-8"?>\n' +
+					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${formatNum(viewW)} ${formatNum(viewH)}" width="${formatNum(viewW)}" height="${formatNum(viewH)}">\n` +
+					`  <path fill="none" stroke="${stroke}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" d="${d}"/>\n` +
+					'</svg>'
+				);
+			}
+
+			function jsonFileToSvg(jsonText) {
+				const data = JSON.parse(jsonText);
+				const points = parseTrackJson(data);
+				return trackToSvg(points);
+			}
+
+			function svgOutputName(inputFileName) {
+				return inputFileName.replace(/\.json$/i, '') + '.svg';
+			}
+
+			function svgForPreview(svg) {
+				return svg.replace(/<\?xml[^>]*>\s*/i, '');
+			}
+
+			const dropzone = document.getElementById('dropzone');
+			const fileInput = document.getElementById('file-input');
+			const status = document.getElementById('status');
+			const previewWrap = document.getElementById('preview-wrap');
+			const previewBox = document.getElementById('preview-box');
+			const downloadBtn = document.getElementById('download-btn');
+			const resetBtn = document.getElementById('reset-btn');
+
+			let currentSvg = null;
+			let currentFileName = null;
+
+			function setStatus(message, isError = false) {
+				status.textContent = message;
+				status.classList.toggle('error', isError);
+			}
+
+			function reset() {
+				currentSvg = null;
+				currentFileName = null;
+				fileInput.value = '';
+				previewBox.innerHTML = '';
+				previewWrap.classList.remove('visible');
+				downloadBtn.disabled = true;
+				setStatus('');
+			}
+
+			async function handleFile(file) {
+				if (!file.name.toLowerCase().endsWith('.json')) {
+					setStatus('Seleziona un file .json', true);
+					return;
+				}
+
+				setStatus('Lettura di ' + file.name + '…');
+
+				try {
+					const text = await file.text();
+					const svg = jsonFileToSvg(text);
+					currentSvg = svg;
+					currentFileName = svgOutputName(file.name);
+
+					previewBox.innerHTML = svgForPreview(svg);
+					previewWrap.classList.add('visible');
+					downloadBtn.disabled = false;
+					setStatus('Pronto: ' + currentFileName);
+				} catch (err) {
+					reset();
+					setStatus(err instanceof Error ? err.message : String(err), true);
+				}
+			}
+
+			dropzone.addEventListener('dragover', function (e) {
+				e.preventDefault();
+				dropzone.classList.add('dragover');
+			});
+
+			dropzone.addEventListener('dragleave', function () {
+				dropzone.classList.remove('dragover');
+			});
+
+			dropzone.addEventListener('drop', function (e) {
+				e.preventDefault();
+				dropzone.classList.remove('dragover');
+				const file = e.dataTransfer && e.dataTransfer.files[0];
+				if (file) handleFile(file);
+			});
+
+			fileInput.addEventListener('change', function () {
+				const file = fileInput.files && fileInput.files[0];
+				if (file) handleFile(file);
+			});
+
+			downloadBtn.addEventListener('click', function () {
+				if (!currentSvg || !currentFileName) return;
+
+				const blob = new Blob([currentSvg], { type: 'image/svg+xml;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = currentFileName;
+				a.click();
+				URL.revokeObjectURL(url);
+			});
+
+			resetBtn.addEventListener('click', reset);
+		</script>
+	</body>
+</html>
