@@ -4,9 +4,7 @@
 	import { animate } from 'animejs';
 	import type { Frase } from '$lib/tracce/types';
 
-	type Stop =
-		| { type: 'titolo'; text: string }
-		| { type: 'frase'; orario: string; frase: string };
+	type Stop = { type: 'titolo'; text: string } | { type: 'frase'; orario: string; frase: string };
 
 	let {
 		titolo,
@@ -53,7 +51,7 @@
 	$effect(() => {
 		if (!browser || !scrollerEl) return;
 
-		activeIndex;
+		void activeIndex;
 
 		const copies = scrollerEl.querySelectorAll('.stop.is-active .copy');
 		if (copies.length === 0) return;

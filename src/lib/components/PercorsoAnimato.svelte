@@ -82,12 +82,7 @@
 <svg viewBox={parsed.viewBox} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 	<path class="path-todo" d={parsed.pathD} />
 	<path class="path-done" bind:this={pathDoneEl} d={parsed.pathD} />
-	<rect
-		class="marker"
-		bind:this={startMarker}
-		width={MARKER_SIZE}
-		height={MARKER_SIZE}
-	/>
+	<rect class="marker" bind:this={startMarker} width={MARKER_SIZE} height={MARKER_SIZE} />
 	<rect class="marker" bind:this={headMarker} width={MARKER_SIZE} height={MARKER_SIZE} />
 </svg>
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	let { data } = $props();
 </script>
 
@@ -7,7 +9,7 @@
 	<ul>
 		{#each data.tracce as traccia (traccia.slug)}
 			<li>
-				<a href="/tracce/{traccia.slug}">{traccia.titolo}</a>
+				<a href={resolve(`/tracce/${traccia.slug}`)}>{traccia.titolo}</a>
 			</li>
 		{/each}
 	</ul>

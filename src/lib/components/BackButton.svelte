@@ -1,8 +1,10 @@
 <script lang="ts">
-	let { href = '/tracce' }: { href?: string } = $props();
+	import { resolve } from '$app/paths';
+
+	let { href = '/tracce' }: { href?: '/tracce' } = $props();
 </script>
 
-<a class="back" {href} aria-label="Torna alle tracce">
+<a class="back" href={resolve(href)} aria-label="Torna alle tracce">
 	<span aria-hidden="true">←</span>
 </a>
 
