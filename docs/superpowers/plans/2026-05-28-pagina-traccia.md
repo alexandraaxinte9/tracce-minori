@@ -14,30 +14,31 @@
 
 ## File map
 
-| File | Responsibility |
-|------|----------------|
-| `src/lib/tracce/types.ts` | `TracciaContent`, `Frase`, `TracciaSummary` types |
-| `src/lib/tracce/load.ts` | Read `static/tracce/*` at build time (Node `fs`) |
-| `src/lib/tracce/load.test.ts` | Unit tests for loaders |
-| `src/lib/tracce/progress.ts` | `pathProgress(activeStopIndex, phraseCount)` pure helper |
-| `src/lib/tracce/progress.test.ts` | Unit tests for progress mapping |
-| `src/lib/components/BackButton.svelte` | Circle back link to `/tracce` |
-| `src/lib/components/PercorsoAnimato.svelte` | Inline SVG path, gray base + white draw, markers |
-| `src/lib/components/FrasiScroller.svelte` | Snap scroll list, active index, text emphasis |
-| `src/lib/components/TracciaView.svelte` | Desktop/mobile layout shell |
-| `src/routes/tracce/+page.ts` | `load()` → list of tracce |
-| `src/routes/tracce/+page.svelte` | Minimal list UI |
-| `src/routes/tracce/[slug]/+page.ts` | `load()`, `entries()`, error handling |
-| `src/routes/tracce/[slug]/+page.svelte` | Track page |
-| `src/routes/+page.ts` | Redirect `/` → `/tracce` |
-| `src/app.css` | Global tokens (navy bg, typography) |
-| `static/tracce/traccia-0X/frasi.yaml` | Add `titolo` field to each track |
+| File                                        | Responsibility                                           |
+| ------------------------------------------- | -------------------------------------------------------- |
+| `src/lib/tracce/types.ts`                   | `TracciaContent`, `Frase`, `TracciaSummary` types        |
+| `src/lib/tracce/load.ts`                    | Read `static/tracce/*` at build time (Node `fs`)         |
+| `src/lib/tracce/load.test.ts`               | Unit tests for loaders                                   |
+| `src/lib/tracce/progress.ts`                | `pathProgress(activeStopIndex, phraseCount)` pure helper |
+| `src/lib/tracce/progress.test.ts`           | Unit tests for progress mapping                          |
+| `src/lib/components/BackButton.svelte`      | Circle back link to `/tracce`                            |
+| `src/lib/components/PercorsoAnimato.svelte` | Inline SVG path, gray base + white draw, markers         |
+| `src/lib/components/FrasiScroller.svelte`   | Snap scroll list, active index, text emphasis            |
+| `src/lib/components/TracciaView.svelte`     | Desktop/mobile layout shell                              |
+| `src/routes/tracce/+page.ts`                | `load()` → list of tracce                                |
+| `src/routes/tracce/+page.svelte`            | Minimal list UI                                          |
+| `src/routes/tracce/[slug]/+page.ts`         | `load()`, `entries()`, error handling                    |
+| `src/routes/tracce/[slug]/+page.svelte`     | Track page                                               |
+| `src/routes/+page.ts`                       | Redirect `/` → `/tracce`                                 |
+| `src/app.css`                               | Global tokens (navy bg, typography)                      |
+| `static/tracce/traccia-0X/frasi.yaml`       | Add `titolo` field to each track                         |
 
 ---
 
 ### Task 1: Data layer — types and path progress
 
 **Files:**
+
 - Create: `src/lib/tracce/types.ts`
 - Create: `src/lib/tracce/progress.ts`
 - Create: `src/lib/tracce/progress.test.ts`
@@ -131,6 +132,7 @@ git commit -m "feat(tracce): add types and path progress helper"
 ### Task 2: Data layer — load tracce from disk
 
 **Files:**
+
 - Create: `src/lib/tracce/load.ts`
 - Create: `src/lib/tracce/load.test.ts`
 - Modify: `static/tracce/traccia-01/frasi.yaml`, `traccia-02`, `traccia-03` (add `titolo`)
@@ -139,7 +141,7 @@ git commit -m "feat(tracce): add types and path progress helper"
 
 ```yaml
 # static/tracce/traccia-01/frasi.yaml (top of file)
-titolo: "Traccia 01"
+titolo: 'Traccia 01'
 frasi:
   # ... existing entries unchanged
 ```
@@ -250,6 +252,7 @@ git commit -m "feat(tracce): load YAML and SVG from static/tracce"
 ### Task 3: Global styles and back button
 
 **Files:**
+
 - Create: `src/app.css`
 - Modify: `src/routes/+layout.svelte`
 - Create: `src/lib/components/BackButton.svelte`
@@ -343,6 +346,7 @@ git commit -m "feat: global track page styles and back button"
 ### Task 4: Track list route (`/tracce`)
 
 **Files:**
+
 - Create: `src/routes/tracce/+page.ts`
 - Create: `src/routes/tracce/+page.svelte`
 - Create: `src/routes/+page.ts`
@@ -427,6 +431,7 @@ git commit -m "feat: add /tracce list and redirect home"
 ### Task 5: PercorsoAnimato — SVG path with anime.js draw
 
 **Files:**
+
 - Create: `src/lib/components/PercorsoAnimato.svelte`
 
 - [ ] **Step 1: Component skeleton**
@@ -525,6 +530,7 @@ git commit -m "feat: animated SVG path component with anime.js drawable"
 ### Task 6: FrasiScroller — snap scroll + active index + text animation
 
 **Files:**
+
 - Create: `src/lib/components/FrasiScroller.svelte`
 
 - [ ] **Step 1: Build stops array in parent or inside component**
@@ -649,6 +655,7 @@ git commit -m "feat: snap scroller with active phrase emphasis"
 ### Task 7: TracciaView layout + track route
 
 **Files:**
+
 - Create: `src/lib/components/TracciaView.svelte`
 - Create: `src/routes/tracce/[slug]/+page.ts`
 - Create: `src/routes/tracce/[slug]/+page.svelte`
@@ -781,6 +788,7 @@ git commit -m "feat: track page route with split layout and mobile background pa
 ### Task 8: Build, check, and smoke test
 
 **Files:**
+
 - Optional: `src/routes/tracce/tracce.e2e.ts` (Playwright)
 
 - [ ] **Step 1: Typecheck and lint**
@@ -829,19 +837,19 @@ git commit -m "test: smoke test for tracce list and track page"
 
 ## Spec coverage checklist
 
-| Requirement | Task |
-|-------------|------|
-| Elenco tracce | Task 4 |
-| Pagina per traccia | Task 7 |
-| YAML `titolo` + variabile `frasi` | Task 2 |
-| Snap scroll a capitoli | Task 6 |
-| Titolo = stop 0, path = 0 | Task 1, 6, 7 |
-| Path avanza 1/N per frase | Task 1, 5, 7 |
-| Desktop split, path sticky | Task 7 |
-| Mobile path background | Task 7 CSS |
-| Back → `/tracce` | Task 3, 7 |
-| anime.js v4 path + text | Task 5, 6 |
-| No aeroplanino | — (omitted) |
+| Requirement                       | Task         |
+| --------------------------------- | ------------ |
+| Elenco tracce                     | Task 4       |
+| Pagina per traccia                | Task 7       |
+| YAML `titolo` + variabile `frasi` | Task 2       |
+| Snap scroll a capitoli            | Task 6       |
+| Titolo = stop 0, path = 0         | Task 1, 6, 7 |
+| Path avanza 1/N per frase         | Task 1, 5, 7 |
+| Desktop split, path sticky        | Task 7       |
+| Mobile path background            | Task 7 CSS   |
+| Back → `/tracce`                  | Task 3, 7    |
+| anime.js v4 path + text           | Task 5, 6    |
+| No aeroplanino                    | — (omitted)  |
 
 ---
 

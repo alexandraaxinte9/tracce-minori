@@ -14,10 +14,10 @@ Per ogni traccia in `static/tracce/`, una pagina del sito che racconta il percor
 
 ## Pagine del sito
 
-| Pagina | Ruolo |
-|--------|--------|
-| **Elenco tracce** | Mostra tutte le tracce disponibili; punto di ingresso per sceglierne una |
-| **Pagina traccia** | Esperienza immersiva di una singola traccia (mockup di riferimento) |
+| Pagina             | Ruolo                                                                    |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Elenco tracce**  | Mostra tutte le tracce disponibili; punto di ingresso per sceglierne una |
+| **Pagina traccia** | Esperienza immersiva di una singola traccia (mockup di riferimento)      |
 
 - Una URL per traccia (es. `traccia-01`, `traccia-02`, …).
 - Pulsante **indietro** in alto a sinistra: torna sempre all’**elenco tracce** (non la home generica, non “indietro browser”).
@@ -30,19 +30,19 @@ L’elenco tracce è parte dello stesso progetto ma può essere minimale nella p
 
 Ogni cartella in `static/tracce/traccia-XX/` contiene:
 
-| File | Uso |
-|------|-----|
-| `frasi.yaml` | Titolo + elenco frasi (orario + testo) |
-| `percorso.svg` | Linea del tracciato da animare |
-| `dati.json` | Metadati GPS (non usati direttamente nella UI di questa pagina) |
+| File           | Uso                                                             |
+| -------------- | --------------------------------------------------------------- |
+| `frasi.yaml`   | Titolo + elenco frasi (orario + testo)                          |
+| `percorso.svg` | Linea del tracciato da animare                                  |
+| `dati.json`    | Metadati GPS (non usati direttamente nella UI di questa pagina) |
 
 ### Schema YAML
 
 ```yaml
-titolo: "Nome della traccia"
+titolo: 'Nome della traccia'
 frasi:
-  - orario: "9:55"
-    frase: "Testo della frase..."
+  - orario: '9:55'
+    frase: 'Testo della frase...'
   # ... un numero qualsiasi di voci
 ```
 
@@ -92,7 +92,7 @@ Le fermate dello scroll sono:
 ### Sincronizzazione tracciato ↔ frasi
 
 - Sulla **fermata titolo**: il percorso è ancora **tutto da fare** (linea grigia/trasparente; nessun tratto bianco “completato”).
-- Su ogni **fermata frase** *i* (dalla prima all’ultima): il tracciato avanza di **1/N**, dove **N = numero di frasi** nel YAML.
+- Su ogni **fermata frase** _i_ (dalla prima all’ultima): il tracciato avanza di **1/N**, dove **N = numero di frasi** nel YAML.
   - Esempio: 6 frasi → alla frase 3 il percorso è disegnato per 3/6 della lunghezza.
   - Esempio: 4 frasi → alla frase 2 per 2/4, ecc.
 
@@ -117,11 +117,11 @@ Dettagli tecnici (timeline, ScrollObserver, ecc.) restano all’implementazione;
 
 ## Gerarchia visiva del testo
 
-| Posizione | Aspetto |
-|-----------|---------|
-| Centro (fermata attiva) | Grande, bianco, massima leggibilità |
-| Sopra / sotto | Più piccolo, opacità ridotta |
-| Titolo (prima fermata) | Stesso trattamento “in evidenza” al centro; senza riga orario |
+| Posizione               | Aspetto                                                       |
+| ----------------------- | ------------------------------------------------------------- |
+| Centro (fermata attiva) | Grande, bianco, massima leggibilità                           |
+| Sopra / sotto           | Più piccolo, opacità ridotta                                  |
+| Titolo (prima fermata)  | Stesso trattamento “in evidenza” al centro; senza riga orario |
 
 Tipografia e colori esatti seguono il mockup allegato (sans-serif bianco su blu scuro).
 

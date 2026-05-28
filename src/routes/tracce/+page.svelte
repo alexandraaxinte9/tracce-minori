@@ -9,7 +9,7 @@
 	<ul>
 		{#each data.tracce as traccia (traccia.slug)}
 			<li>
-				<a href={resolve(`/tracce/${traccia.slug}`)}>{traccia.titolo}</a>
+				<a href={resolve('/tracce/[slug]', { slug: traccia.slug })}>{traccia.titolo}</a>
 			</li>
 		{/each}
 	</ul>
