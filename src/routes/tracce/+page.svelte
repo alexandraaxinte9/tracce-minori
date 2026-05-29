@@ -21,14 +21,25 @@
 		max-width: 40rem;
 		margin: 0 auto;
 	}
+
+	h1 {
+		font-size: 2.75rem;
+		font-weight: 600;
+		margin: 0 0 2.5rem;
+	}
+
 	ul {
 		list-style: none;
 		padding: 0;
+		margin: 0;
 	}
+
 	li {
-		margin: 1rem 0;
+		margin: 1.75rem 0;
 	}
+
 	a {
 		font-size: 1.25rem;
+		text-decoration: none;
 	}
 </style>

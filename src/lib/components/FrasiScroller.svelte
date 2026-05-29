@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { scrollPathProgress, smoothstep } from '$lib/tracce/progress';
 	import type { Frase } from '$lib/tracce/types';
 
 	type Stop = { type: 'titolo'; text: string } | { type: 'frase'; orario: string; frase: string };
@@ -23,32 +24,6 @@
 		{ type: 'titolo', text: titolo },
 		...frasi.map((f) => ({ type: 'frase' as const, orario: f.orario, frase: f.frase }))
 	]);
-
-	function smoothstep(t: number): number {
-		const x = Math.max(0, Math.min(1, t));
-		return x * x * (3 - 2 * x);
-	}
-
-	function computePathProgress(centerY: number, stopEls: HTMLElement[], phraseCount: number): number {
-		if (phraseCount === 0 || stopEls.length < 2) return 0;
-
-		const centers = stopEls.map((el) => el.offsetTop + el.offsetHeight / 2);
-		if (centerY <= centers[1]) return 0;
-
-		const lastFraseIdx = phraseCount;
-		if (centerY >= centers[lastFraseIdx]) return 1;
-
-		for (let i = 1; i < lastFraseIdx; i++) {
-			const start = centers[i];
-			const end = centers[i + 1];
-			if (centerY >= start && centerY < end) {
-				const t = (centerY - start) / (end - start);
-				return (i + t) / phraseCount;
-			}
-		}
-
-		return 1;
-	}
 
 	onMount(() => {
 		if (!scrollerEl) return;
@@ -79,7 +54,8 @@
 			});
 
 			activeIndex = closestIdx;
-			onPathProgress?.(computePathProgress(centerY, [...stopEls], frasi.length));
+			const centers = [...stopEls].map((el) => el.offsetTop + el.offsetHeight / 2);
+			onPathProgress?.(scrollPathProgress(centerY, centers, frasi.length));
 		};
 
 		const onScroll = () => {
