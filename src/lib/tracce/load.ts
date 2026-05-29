@@ -1,9 +1,10 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import type { TracciaContent, TracciaSummary, Frase } from './types';
 
-const TRACCE_ROOT = join(process.cwd(), 'static', 'tracce');
+const TRACCE_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'content', 'tracce');
 
 type YamlRoot = {
 	titolo: string;
