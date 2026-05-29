@@ -33,7 +33,6 @@
 	let headMarker: SVGRectElement | undefined;
 	let startMarker: SVGRectElement | undefined;
 	let drawable: DrawableSVGGeometry | undefined;
-	let drawAnimation: ReturnType<typeof animate> | null = null;
 	let ready = false;
 
 	function updateMarkers(p: number) {
@@ -57,11 +56,9 @@
 
 		const clamped = Math.max(0, Math.min(1, p));
 
-		drawAnimation?.pause();
-		drawAnimation = animate(drawable, {
+		animate(drawable, {
 			draw: `0 ${clamped}`,
-			duration: 400,
-			ease: 'outQuad'
+			duration: 0
 		});
 		updateMarkers(clamped);
 	}
