@@ -9,10 +9,12 @@
 
 	let {
 		percorsoSvg,
-		progress = 0
+		progress = 0,
+		variant = 'traccia'
 	}: {
 		percorsoSvg: string;
 		progress?: number;
+		variant?: 'traccia' | 'tracciato';
 	} = $props();
 
 	function parsePercorsoSvg(svg: string) {
@@ -79,7 +81,12 @@
 	});
 </script>
 
-<svg viewBox={parsed.viewBox} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<svg
+	class={variant}
+	viewBox={parsed.viewBox}
+	xmlns="http://www.w3.org/2000/svg"
+	aria-hidden="true"
+>
 	<path class="path-todo" d={parsed.pathD} />
 	<path class="path-done" bind:this={pathDoneEl} d={parsed.pathD} />
 	<rect class="marker" bind:this={startMarker} width={MARKER_SIZE} height={MARKER_SIZE} />
@@ -105,5 +112,27 @@
 
 	.marker {
 		fill: var(--color-path-done);
+	}
+
+	svg {
+		display: block;
+		height: min(90vh, 52rem);
+		width: auto;
+		max-width: 100%;
+		overflow: visible;
+	}
+
+	svg.tracciato {
+		--color-path-done: #e85d04;
+		--color-path-todo: rgba(232, 93, 4, 0.35);
+	}
+
+	svg.tracciato .path-todo,
+	svg.tracciato .path-done {
+		stroke-width: 3;
+	}
+
+	svg.tracciato .marker {
+		fill: #e85d04;
 	}
 </style>
