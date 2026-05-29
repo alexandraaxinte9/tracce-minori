@@ -1,14 +1,11 @@
 <script lang="ts">
 	import type { TracciaContent } from '$lib/tracce/types';
-	import { pathProgress } from '$lib/tracce/progress';
 	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 	import FrasiScroller from './FrasiScroller.svelte';
 
 	let { traccia }: { traccia: TracciaContent } = $props();
-	let activeIndex = $state(0);
-	const phraseCount = $derived(traccia.frasi.length);
-	let progress = $derived(pathProgress(activeIndex, phraseCount));
+	let progress = $state(0);
 </script>
 
 <BackButton />
@@ -20,7 +17,7 @@
 		<FrasiScroller
 			titolo={traccia.titolo}
 			frasi={traccia.frasi}
-			onActiveIndex={(i) => (activeIndex = i)}
+			onPathProgress={(p) => (progress = p)}
 		/>
 	</div>
 </div>
