@@ -1,10 +1,21 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	let { href = '/tracce' }: { href?: '/tracce' } = $props();
+	let {
+		href = '/',
+		theme = 'on-dark'
+	}: {
+		href?: '/';
+		theme?: 'on-dark' | 'on-light';
+	} = $props();
 </script>
 
-<a class="back" href={resolve(href)} aria-label="Torna alle tracce">
+<a
+	class="back"
+	class:on-light={theme === 'on-light'}
+	href={resolve(href)}
+	aria-label="Torna all'indice"
+>
 	<span aria-hidden="true">←</span>
 </a>
 
@@ -26,5 +37,14 @@
 	}
 	.back:hover {
 		background: rgba(255, 255, 255, 0.08);
+	}
+
+	.back.on-light {
+		border-color: rgba(11, 21, 48, 0.35);
+		color: #0b1530;
+	}
+
+	.back.on-light:hover {
+		background: rgba(11, 21, 48, 0.06);
 	}
 </style>

@@ -1,7 +1,11 @@
-import { redirect } from '@sveltejs/kit';
+import { listTracce } from '$lib/tracce/load';
+import { listTracciati } from '$lib/tracciati/load';
 
 export const prerender = true;
 
 export function load() {
-	redirect(307, '/tracce');
+	return {
+		tracce: listTracce(),
+		tracciati: listTracciati()
+	};
 }

@@ -8,7 +8,7 @@
 	let progress = $state(0);
 </script>
 
-<BackButton />
+<BackButton href="/" />
 <div class="traccia">
 	<aside class="path-column" aria-hidden="true">
 		<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />
