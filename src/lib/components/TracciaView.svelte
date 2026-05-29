@@ -11,7 +11,7 @@
 	let progress = $derived(pathProgress(activeIndex, phraseCount));
 </script>
 
-<BackButton />
+<BackButton href="/" />
 <div class="traccia">
 	<aside class="path-column" aria-hidden="true">
 		<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />

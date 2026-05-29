@@ -1,7 +1,7 @@
-import { listTracce } from '$lib/tracce/load';
+import { redirect } from '@sveltejs/kit';
 
 export const prerender = true;
 
 export function load() {
-	return { tracce: listTracce() };
+	redirect(307, '/');
 }
