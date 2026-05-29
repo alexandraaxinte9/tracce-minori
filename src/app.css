@@ -4,7 +4,7 @@
 	--color-text-muted: rgba(255, 255, 255, 0.35);
 	--color-path-done: #ffffff;
 	--color-path-todo: rgba(255, 255, 255, 0.25);
-	--font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--font-sans: 'Poppins', sans-serif;
 }
 
 html,
