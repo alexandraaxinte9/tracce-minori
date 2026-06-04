@@ -4,6 +4,7 @@
 	import { animate } from 'animejs';
 	import { createDrawable } from 'animejs/svg';
 	import type { DrawableSVGGeometry } from 'animejs';
+	import { parsePercorsoSvg } from '$lib/percorso/parse';
 
 	const MARKER_SIZE = 8;
 
@@ -16,16 +17,6 @@
 		progress?: number;
 		variant?: 'traccia' | 'tracciato';
 	} = $props();
-
-	function parsePercorsoSvg(svg: string) {
-		const viewBoxMatch = svg.match(/viewBox=["']([^"']+)["']/i);
-		const pathMatch = svg.match(/<path[^>]*\sd=["']([^"']+)["']/i);
-
-		return {
-			viewBox: viewBoxMatch?.[1] ?? '0 0 100 100',
-			pathD: pathMatch?.[1] ?? ''
-		};
-	}
 
 	const parsed = $derived(parsePercorsoSvg(percorsoSvg));
 
