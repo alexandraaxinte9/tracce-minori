@@ -1,0 +1,1 @@
+Molti percorsi urbani, pur essendo attraversati ogni giorno, restano invisibili o considerati marginali perché compiuti da persone ai margini della società. Il progetto sceglie di partire proprio da questi cammini quotidiani per riconoscerne il valore, dando visibilità a chi abita e attraversa la città in modo spesso ignorato.
