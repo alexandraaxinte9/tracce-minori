@@ -15,7 +15,9 @@
 <figure class="overlay" class:tracce={column === 'tracce'} class:tracciati={column === 'tracciati'}>
 	<img src={photoUrl} alt="" decoding="async" />
 	<div class="path-layer">
-		<PercorsoStatico {percorsoSvg} />
+		<div class="path-fit">
+			<PercorsoStatico {percorsoSvg} fit="photo" />
+		</div>
 	</div>
 </figure>
 
@@ -46,11 +48,24 @@
 		pointer-events: none;
 	}
 
-	.overlay.tracce .path-layer :global(svg) {
+	.path-fit {
+		width: 72%;
+		aspect-ratio: 569.643 / 1002;
+		max-height: 92%;
+		flex-shrink: 0;
+	}
+
+	.path-fit :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.overlay.tracce .path-fit {
 		transform: translateY(2%);
 	}
 
-	.overlay.tracciati .path-layer :global(svg) {
+	.overlay.tracciati .path-fit {
 		transform: translateY(-1%);
 	}
 </style>

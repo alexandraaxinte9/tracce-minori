@@ -1,11 +1,24 @@
 <script lang="ts">
 	import { parsePercorsoSvg } from '$lib/percorso/parse';
 
-	let { percorsoSvg }: { percorsoSvg: string } = $props();
+	let {
+		percorsoSvg,
+		fit = 'default'
+	}: {
+		percorsoSvg: string;
+		fit?: 'default' | 'photo';
+	} = $props();
 	const parsed = $derived(parsePercorsoSvg(percorsoSvg));
 </script>
 
-<svg class="percorso-statico" viewBox={parsed.viewBox} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<svg
+	class="percorso-statico"
+	class:photo={fit === 'photo'}
+	viewBox={parsed.viewBox}
+	preserveAspectRatio="xMidYMid meet"
+	xmlns="http://www.w3.org/2000/svg"
+	aria-hidden="true"
+>
 	<path class="path" d={parsed.pathD} />
 </svg>
 
@@ -16,6 +29,11 @@
 		height: auto;
 		max-height: 92%;
 		overflow: visible;
+	}
+
+	.percorso-statico.photo {
+		width: 100%;
+		height: 100%;
 	}
 
 	.path {
