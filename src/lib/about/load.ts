@@ -3,11 +3,11 @@ import { loadTracciato } from '$lib/tracciati/load';
 import type { AboutContent } from './types';
 import { parseIntroMarkdown, parseSectionMarkdown } from './parse';
 
-import introRaw from '$lib/content/about/testi/intro.md?raw';
-import tracceRaw from '$lib/content/about/testi/tracce.md?raw';
-import tracciatiRaw from '$lib/content/about/testi/tracciati.md?raw';
-import fotoTracceUrl from '$lib/content/about/tracce.png/Mask group.png?url';
-import fotoTracciatiUrl from '$lib/content/about/tracciati.png/Mask group (1).png?url';
+import introRaw from '$lib/content/about/intro.md?raw';
+import tracceRaw from '$lib/content/about/tracce.md?raw';
+import tracciatiRaw from '$lib/content/about/tracciati.md?raw';
+import fotoTracceUrl from '$lib/content/about/foto-tracce.png?url';
+import fotoTracciatiUrl from '$lib/content/about/foto-tracciati.png?url';
 
 const TRACCIA_SLUG = 'traccia-01';
 const TRACCIATO_SLUG = 'tracciati-01';
