@@ -1,16 +1,15 @@
 import { expect, test } from '@playwright/test';
 
-test('hub lists tracce and opens traccia-01', async ({ page }) => {
+test('homepage shows brand and opens traccia-01', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByRole('heading', { name: 'Tracce minori' })).toBeVisible();
-	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
-	await page.getByRole('link', { name: /Traccia 01/i }).click();
+	await expect(page.getByAltText('Tracce Minori')).toBeVisible();
+	await expect(page.getByText('STORIE CHE ATTRAVERSANO LA CITTÀ')).toBeVisible();
+	await page.goto('/tracce/traccia-01');
 	await expect(page).toHaveURL(/traccia-01/);
 });
 
-test('hub lists tracciati and opens tracciati-01', async ({ page }) => {
+test('homepage nav opens tracciati-01', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByRole('heading', { name: 'Tracciati' })).toBeVisible();
-	await page.getByRole('link', { name: /Tracciato 01/i }).click();
+	await page.getByRole('navigation', { name: 'Principale' }).getByRole('link', { name: 'Tracciati' }).click();
 	await expect(page).toHaveURL(/tracciati-01/);
 });
