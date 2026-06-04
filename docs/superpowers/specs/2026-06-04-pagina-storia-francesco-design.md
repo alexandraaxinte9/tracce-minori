@@ -16,28 +16,28 @@ La pagina si integra nel sito esistente: stesso **clima scuro** delle altre pagi
 
 ## Decisioni di brainstorming (riepilogo)
 
-| Tema | Scelta |
-|------|--------|
-| Esperienza | Equilibrio lettura + immagine + invito alle quattro caselle (nessuna prevalenza) |
-| Quattro caselle | Sempre **2 tracce + 2 tracciati** (layout fisso come mockup) |
-| Click caselle | Apre le **pagine traccia/tracciato** già esistenti (quando i link sono configurati) |
-| Quali 2+2 | **Non ancora decisi** — slot uguali; href opzionale in config |
-| Mobile | **Proposta team** — colonna, caselle più alte per il tocco |
-| Atmosfera | **Sfondo scuro** come il sito (`#0b1530`); arancione/blu del mockup come accenti (non pagina bianca isolata) |
-| Header | **Uguale ovunque** (home, About, Tracciati) |
-| Testo hero | **Definitivo** — da `storiadifrancesco.md` (non lorem) |
-| Implementazione contenuti | **Opzione 2** — slot/file per casella, senza ridisegnare la pagina a ogni aggiunta |
+| Tema                      | Scelta                                                                                                       |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Esperienza                | Equilibrio lettura + immagine + invito alle quattro caselle (nessuna prevalenza)                             |
+| Quattro caselle           | Sempre **2 tracce + 2 tracciati** (layout fisso come mockup)                                                 |
+| Click caselle             | Apre le **pagine traccia/tracciato** già esistenti (quando i link sono configurati)                          |
+| Quali 2+2                 | **Non ancora decisi** — slot uguali; href opzionale in config                                                |
+| Mobile                    | **Proposta team** — colonna, caselle più alte per il tocco                                                   |
+| Atmosfera                 | **Sfondo scuro** come il sito (`#0b1530`); arancione/blu del mockup come accenti (non pagina bianca isolata) |
+| Header                    | **Uguale ovunque** (home, About, Tracciati)                                                                  |
+| Testo hero                | **Definitivo** — da `storiadifrancesco.md` (non lorem)                                                       |
+| Implementazione contenuti | **Opzione 2** — slot/file per casella, senza ridisegnare la pagina a ogni aggiunta                           |
 
 ---
 
 ## Pagine e navigazione
 
-| Elemento | Comportamento |
-|----------|---------------|
-| **URL** | `/storia-di-francesco` |
-| **Ingresso** | Pulsante *Scopri la storia di Francesco* sulla pagina About → link attivo verso questa URL (sostituisce il pulsante disabilitato attuale su branch `about`) |
-| **Header** | Stesso componente/pattern di About: icona home → `/`; link About → `/about`; link Tracciati → destinazione coerente con il resto del sito |
-| **Home** | Non modificata in questa fase, salvo eventuale link esplicito in un secondo momento |
+| Elemento     | Comportamento                                                                                                                                               |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **URL**      | `/storia-di-francesco`                                                                                                                                      |
+| **Ingresso** | Pulsante _Scopri la storia di Francesco_ sulla pagina About → link attivo verso questa URL (sostituisce il pulsante disabilitato attuale su branch `about`) |
+| **Header**   | Stesso componente/pattern di About: icona home → `/`; link About → `/about`; link Tracciati → destinazione coerente con il resto del sito                   |
+| **Home**     | Non modificata in questa fase, salvo eventuale link esplicito in un secondo momento                                                                         |
 
 Le pagine `/tracce/[slug]` e `/tracciati/[slug]` **non** cambiano comportamento interno.
 
@@ -60,12 +60,12 @@ Ordine verticale: header → blocco arancione (larghezza piena) → illustrazion
 
 ### Caselle — stati visivi
 
-| Stato | Aspetto |
-|-------|---------|
+| Stato                    | Aspetto                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- |
 | **Vuota (fase attuale)** | Mantiene colore/bordo del mockup; area centrale libera (nessuna immagine obbligatoria) |
-| **Con immagine** | Immagine centrata (`object-fit: contain` per mappe/linee; non tagliare il disegno) |
-| **Con link** | Intera casella cliccabile (`<a>`) verso slug traccia/tracciato configurato |
-| **Senza link** | `<div>` o link disabilitato — nessuna navigazione finché slug non è in config |
+| **Con immagine**         | Immagine centrata (`object-fit: contain` per mappe/linee; non tagliare il disegno)     |
+| **Con link**             | Intera casella cliccabile (`<a>`) verso slug traccia/tracciato configurato             |
+| **Senza link**           | `<div>` o link disabilitato — nessuna navigazione finché slug non è in config          |
 
 Non mostrare etichette tipo “placeholder” nella versione pubblica finale; in dev è ammesso un bordo tratteggiato solo se utile in anteprima locale (opzionale, non in build produzione).
 
@@ -73,24 +73,24 @@ Non mostrare etichette tipo “placeholder” nella versione pubblica finale; in
 
 ## Contenuti (`src/lib/content/storia-di-francesco/`)
 
-| Percorso | Uso |
-|----------|-----|
-| `testo/storiadifrancesco.md` | Titolo (prima riga `# …` o convenzione documentata nel loader) + corpo paragrafo hero — **testo definitivo**, non segnaposto |
-| `illustrazione/*` | File immagine hero (es. PNG esistente); un solo file attivo o campo `hero` in manifest |
-| `tracce/casella-1.*`, `tracce/casella-2.*` | Immagini opzionali per le due caselle blu (png/svg) |
-| `tracciati/casella-1.*`, `tracciati/casella-2.*` | Immagini opzionali per le due caselle con bordo |
-| `manifest.yaml` (o equivalente) | Quattro slot: `id`, `tipo` (`traccia` \| `tracciato`), `image` (opzionale), `href` / `slug` (opzionale finché non scelti i 2+2) |
+| Percorso                                         | Uso                                                                                                                             |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `testo/storiadifrancesco.md`                     | Titolo (prima riga `# …` o convenzione documentata nel loader) + corpo paragrafo hero — **testo definitivo**, non segnaposto    |
+| `illustrazione/*`                                | File immagine hero (es. PNG esistente); un solo file attivo o campo `hero` in manifest                                          |
+| `tracce/casella-1.*`, `tracce/casella-2.*`       | Immagini opzionali per le due caselle blu (png/svg)                                                                             |
+| `tracciati/casella-1.*`, `tracciati/casella-2.*` | Immagini opzionali per le due caselle con bordo                                                                                 |
+| `manifest.yaml` (o equivalente)                  | Quattro slot: `id`, `tipo` (`traccia` \| `tracciato`), `image` (opzionale), `href` / `slug` (opzionale finché non scelti i 2+2) |
 
 ### Manifest — schema minimo
 
 ```yaml
-titolo_sezione_tracce: "Le sue tracce..."
-titolo_sezione_tracciati: "e i suoi tracciati"
+titolo_sezione_tracce: 'Le sue tracce...'
+titolo_sezione_tracciati: 'e i suoi tracciati'
 caselle:
   - id: tracce-1
     tipo: traccia
-    slug: null          # es. traccia-01 quando deciso
-    image: null         # path relativo quando presente
+    slug: null # es. traccia-01 quando deciso
+    image: null # path relativo quando presente
   - id: tracce-2
     tipo: traccia
     slug: null
@@ -111,15 +111,15 @@ Quando `slug` è valorizzato, la casella risolve l’URL con le stesse regole de
 
 ## Architettura componenti
 
-| Unità | Responsabilità |
-|-------|----------------|
-| `src/lib/francesco/load.ts` | Legge markdown, manifest e glob immagini a build time |
-| `src/lib/francesco/types.ts` | Tipi `FrancescoContent`, `FrancescoCasella` |
-| `FrancescoHeader.svelte` | Riutilizza `AboutHeader` o estrae header condiviso `SiteHeader` se branch `about` è mergeato |
-| `FrancescoView.svelte` | Composizione layout: hero, sezioni, griglia caselle |
-| `FrancescoCasella.svelte` | Una casella: varianti `tracce` (blu) / `tracciati` (bordo); link condizionale |
-| `src/routes/storia-di-francesco/+page.ts` | Load + prerender |
-| `src/routes/storia-di-francesco/+page.svelte` | Shell pagina |
+| Unità                                         | Responsabilità                                                                               |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `src/lib/francesco/load.ts`                   | Legge markdown, manifest e glob immagini a build time                                        |
+| `src/lib/francesco/types.ts`                  | Tipi `FrancescoContent`, `FrancescoCasella`                                                  |
+| `FrancescoHeader.svelte`                      | Riutilizza `AboutHeader` o estrae header condiviso `SiteHeader` se branch `about` è mergeato |
+| `FrancescoView.svelte`                        | Composizione layout: hero, sezioni, griglia caselle                                          |
+| `FrancescoCasella.svelte`                     | Una casella: varianti `tracce` (blu) / `tracciati` (bordo); link condizionale                |
+| `src/routes/storia-di-francesco/+page.ts`     | Load + prerender                                                                             |
+| `src/routes/storia-di-francesco/+page.svelte` | Shell pagina                                                                                 |
 
 **Interfaccia casella:** props `variant`, `imageUrl?`, `href?`, `alt?` — consumatore non legge il filesystem.
 
@@ -127,15 +127,15 @@ Quando `slug` è valorizzato, la casella risolve l’URL con le stesse regole de
 
 ## Tipografia e colori
 
-| Token | Valore (mockup / sito) | Uso |
-|-------|------------------------|-----|
-| Sfondo pagina | `#0b1530` (`--color-bg`) | Corpo pagina |
-| Arancione | `#f26522` (o `#e85d04` se allineato ad About) | Blocco hero, linee nelle caselle quando non c’è immagine |
-| Blu titoli | `#2e3192` | “Le sue tracce…”, “e i suoi tracciati” |
-| Blu caselle tracce | `#2e3192` | Sfondo dei due riquadri tracce |
-| Testo su arancione | bianco | Titolo + paragrafo hero |
-| Bordo caselle tracciati | bianco / `rgba(255,255,255,0.4)` | Riquadri tracciati |
-| Font | `Poppins` (`--font-sans`) | Coerente con `app.css` |
+| Token                   | Valore (mockup / sito)                        | Uso                                                      |
+| ----------------------- | --------------------------------------------- | -------------------------------------------------------- |
+| Sfondo pagina           | `#0b1530` (`--color-bg`)                      | Corpo pagina                                             |
+| Arancione               | `#f26522` (o `#e85d04` se allineato ad About) | Blocco hero, linee nelle caselle quando non c’è immagine |
+| Blu titoli              | `#2e3192`                                     | “Le sue tracce…”, “e i suoi tracciati”                   |
+| Blu caselle tracce      | `#2e3192`                                     | Sfondo dei due riquadri tracce                           |
+| Testo su arancione      | bianco                                        | Titolo + paragrafo hero                                  |
+| Bordo caselle tracciati | bianco / `rgba(255,255,255,0.4)`              | Riquadri tracciati                                       |
+| Font                    | `Poppins` (`--font-sans`)                     | Coerente con `app.css`                                   |
 
 Il blocco arancione resta **pieno e leggibile** sul fondo scuro della pagina (non invertire in “pagina bianca”).
 
@@ -146,7 +146,7 @@ Il blocco arancione resta **pieno e leggibile** sul fondo scuro della pagina (no
 Su merge del branch `about`:
 
 - Il `<button disabled>` CTA diventa `<a href="/storia-di-francesco">` (o `resolve()` SvelteKit).
-- Testo CTA invariato: *Scopri la storia di Francesco*.
+- Testo CTA invariato: _Scopri la storia di Francesco_.
 
 ---
 
@@ -155,7 +155,7 @@ Su merge del branch `about`:
 1. Route `/storia-di-francesco` prerenderizzata e raggiungibile.
 2. Hero mostra **titolo e paragrafo** da `storiadifrancesco.md` nel blocco arancione.
 3. Area illustrazione riservata con proporzione mockup; con file in `illustrazione/` l’immagine compare.
-4. Sezioni *Le sue tracce…* e *e i suoi tracciati* con **due caselle ciascuna**, stili distinti (blu vs bordo).
+4. Sezioni _Le sue tracce…_ e _e i suoi tracciati_ con **due caselle ciascuna**, stili distinti (blu vs bordo).
 5. Caselle senza immagine: vuote ma dimensionate come mockup.
 6. Caselle con `slug` in manifest: link funzionante alle pagine traccia/tracciato esistenti.
 7. Header identico al pattern About (stessi link).
@@ -175,6 +175,6 @@ Su merge del branch `about`:
 
 ## Riferimenti
 
-- Mockup: *La storia di Francesco* (brainstorming 2026-06-04)
+- Mockup: _La storia di Francesco_ (brainstorming 2026-06-04)
 - Spec correlata: `docs/superpowers/specs/2026-06-04-pagina-about-design.md` (branch `origin/about`)
 - Contenuti esistenti su `origin/about`: `src/lib/content/storia-di-francesco/`
