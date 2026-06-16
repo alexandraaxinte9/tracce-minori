@@ -3,9 +3,11 @@ export type FrancescoCasellaTipo = 'traccia' | 'tracciato';
 export type FrancescoCasella = {
 	id: string;
 	tipo: FrancescoCasellaTipo;
-	slug: string | null;
+	slug: string;
+	titolo: string;
 	imageUrl: string | null;
-	href: string | null;
+	previewSvg: string;
+	href: string;
 };
 
 export type FrancescoContent = {

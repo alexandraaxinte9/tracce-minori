@@ -1,45 +1,56 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	type Variant = 'tracce' | 'tracciati';
 
 	let {
 		variant,
+		slug,
+		titolo,
 		imageUrl = null,
-		href = null,
-		alt = ''
+		previewSvg
 	}: {
 		variant: Variant;
+		slug: string;
+		titolo: string;
 		imageUrl?: string | null;
-		href?: string | null;
-		alt?: string;
+		previewSvg: string;
 	} = $props();
 
 	const className = $derived(`casella casella--${variant}`);
+	const linkHref = $derived(
+		variant === 'tracce'
+			? resolve('/tracce/[slug]', { slug })
+			: resolve('/tracciati/[slug]', { slug })
+	);
 </script>
 
-{#if href}
-	<a class={className} {href} aria-label={alt || undefined}>
+<a class={className} href={linkHref} aria-label={`Apri ${titolo}`}>
+	<div class="preview" aria-hidden="true">
 		{#if imageUrl}
-			<img src={imageUrl} alt={alt} />
-		{/if}
-	</a>
-{:else}
-	<div class={className} aria-hidden={!imageUrl}>
-		{#if imageUrl}
-			<img src={imageUrl} alt={alt} />
+			<img src={imageUrl} alt="" />
+		{:else}
+			{@html previewSvg}
 		{/if}
 	</div>
-{/if}
+	<span class="label">{titolo}</span>
+</a>
 
 <style>
 	.casella {
-		display: grid;
-		place-items: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
 		width: 100%;
-		min-height: 10rem;
+		aspect-ratio: 1;
+		padding: 1rem;
 		border-radius: 1rem;
 		overflow: hidden;
 		text-decoration: none;
 		color: inherit;
+		box-sizing: border-box;
 	}
 
 	.casella--tracce {
@@ -51,10 +62,32 @@
 		border: 1px solid rgba(255, 255, 255, 0.4);
 	}
 
-	.casella img {
-		max-width: 90%;
-		max-height: 90%;
+	.preview {
+		flex: 1;
+		display: grid;
+		place-items: center;
+		width: 100%;
+		min-height: 0;
+	}
+
+	.preview img,
+	.preview :global(svg) {
+		max-width: 82%;
+		max-height: 82%;
+		width: auto;
+		height: auto;
 		object-fit: contain;
+	}
+
+	.preview :global(svg) {
+		filter: brightness(0) invert(1);
+	}
+
+	.label {
+		font-size: 0.85rem;
+		font-weight: 600;
+		opacity: 0.9;
+		text-align: center;
 	}
 
 	a.casella:focus-visible {
@@ -64,6 +97,7 @@
 
 	@media (max-width: 767px) {
 		.casella {
+			aspect-ratio: auto;
 			min-height: 11rem;
 		}
 	}

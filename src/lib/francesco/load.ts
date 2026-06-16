@@ -2,56 +2,59 @@ import yaml from 'js-yaml';
 import type { FrancescoCasella, FrancescoCasellaTipo, FrancescoContent } from './types';
 import { parseHeroMarkdown } from './parse';
 import { casellaHref } from './href';
+import { loadTraccia, tracciaSlugs } from '$lib/tracce/load';
+import { loadTracciato, tracciatiSlugs } from '$lib/tracciati/load';
 
 import heroRaw from '$lib/content/storia-di-francesco/storiadifrancesco.md?raw';
 import illustrazioneUrl from '$lib/content/storia-di-francesco/illustrazione.png?url';
 import manifestRaw from '$lib/content/storia-di-francesco/manifest.yaml?raw';
 
-const imageModules = import.meta.glob('/src/lib/content/storia-di-francesco/**/*.{png,svg,jpg,jpeg,webp}', {
-	query: '?url',
-	eager: true,
-	import: 'default'
-}) as Record<string, string>;
-
-type ManifestCasella = {
-	id: string;
-	tipo: FrancescoCasellaTipo;
-	slug: string | null;
-	image: string | null;
-};
-
 type ManifestRoot = {
 	titolo_sezione_tracce: string;
 	titolo_sezione_tracciati: string;
-	caselle: ManifestCasella[];
 };
 
-const CONTENT_PREFIX = '/src/lib/content/storia-di-francesco/';
+function buildCasella(
+	tipo: FrancescoCasellaTipo,
+	slug: string,
+	index: number
+): FrancescoCasella {
+	if (tipo === 'traccia') {
+		const traccia = loadTraccia(slug);
+		return {
+			id: `tracce-${index + 1}`,
+			tipo,
+			slug,
+			titolo: traccia.titolo,
+			imageUrl: null,
+			previewSvg: traccia.percorsoSvg,
+			href: casellaHref(tipo, slug)!
+		};
+	}
 
-function resolveImageUrl(relativePath: string | null): string | null {
-	if (!relativePath) return null;
-	const key = `${CONTENT_PREFIX}${relativePath.replace(/^\.\//, '')}`;
-	return imageModules[key] ?? null;
-}
-
-function toCasella(raw: ManifestCasella): FrancescoCasella {
+	const tracciato = loadTracciato(slug);
 	return {
-		id: raw.id,
-		tipo: raw.tipo,
-		slug: raw.slug,
-		imageUrl: resolveImageUrl(raw.image),
-		href: casellaHref(raw.tipo, raw.slug)
+		id: `tracciati-${index + 1}`,
+		tipo,
+		slug,
+		titolo: tracciato.titolo,
+		imageUrl: null,
+		previewSvg: tracciato.percorsoSvg,
+		href: casellaHref(tipo, slug)!
 	};
 }
 
 export function loadFrancesco(): FrancescoContent {
 	const manifest = yaml.load(manifestRaw) as ManifestRoot;
-	if (!manifest?.caselle || manifest.caselle.length !== 4) {
-		throw new Error('manifest.yaml invalido: servono esattamente 4 caselle');
+	if (!manifest?.titolo_sezione_tracce || !manifest?.titolo_sezione_tracciati) {
+		throw new Error('manifest.yaml invalido: servono titoli sezione tracce e tracciati');
 	}
 
 	const { titolo, corpo } = parseHeroMarkdown(heroRaw);
-	const caselle = manifest.caselle.map(toCasella);
+	const caselleTracce = tracciaSlugs().map((slug, index) => buildCasella('traccia', slug, index));
+	const caselleTracciati = tracciatiSlugs().map((slug, index) =>
+		buildCasella('tracciato', slug, index)
+	);
 
 	return {
 		titolo,
@@ -59,7 +62,7 @@ export function loadFrancesco(): FrancescoContent {
 		illustrazioneUrl,
 		titoloSezioneTracce: manifest.titolo_sezione_tracce,
 		titoloSezioneTracciati: manifest.titolo_sezione_tracciati,
-		caselleTracce: caselle.filter((c) => c.tipo === 'traccia'),
-		caselleTracciati: caselle.filter((c) => c.tipo === 'tracciato')
+		caselleTracce,
+		caselleTracciati
 	};
 }

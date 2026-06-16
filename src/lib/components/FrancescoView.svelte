@@ -21,13 +21,14 @@
 
 	<section class="sezione sezione--tracce" aria-label={francesco.titoloSezioneTracce}>
 		<h2 class="titolo titolo--left">{francesco.titoloSezioneTracce}</h2>
-		<div class="caselle">
+		<div class="caselle caselle--tracce">
 			{#each francesco.caselleTracce as casella (casella.id)}
 				<FrancescoCasella
 					variant="tracce"
+					slug={casella.slug}
+					titolo={casella.titolo}
 					imageUrl={casella.imageUrl}
-					href={casella.href}
-					alt={casella.slug ? `Apri ${casella.slug}` : ''}
+					previewSvg={casella.previewSvg}
 				/>
 			{/each}
 		</div>
@@ -35,13 +36,14 @@
 
 	<section class="sezione sezione--tracciati" aria-label={francesco.titoloSezioneTracciati}>
 		<h2 class="titolo titolo--right">{francesco.titoloSezioneTracciati}</h2>
-		<div class="caselle">
+		<div class="caselle caselle--tracciati">
 			{#each francesco.caselleTracciati as casella (casella.id)}
 				<FrancescoCasella
 					variant="tracciati"
+					slug={casella.slug}
+					titolo={casella.titolo}
 					imageUrl={casella.imageUrl}
-					href={casella.href}
-					alt={casella.slug ? `Apri ${casella.slug}` : ''}
+					previewSvg={casella.previewSvg}
 				/>
 			{/each}
 		</div>
@@ -118,7 +120,7 @@
 
 	.caselle {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(3, 1fr);
 		gap: clamp(1rem, 3vw, 1.5rem);
 	}
 

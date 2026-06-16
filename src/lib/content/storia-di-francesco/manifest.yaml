@@ -1,19 +1,2 @@
 titolo_sezione_tracce: 'Le sue tracce...'
 titolo_sezione_tracciati: 'e i suoi tracciati'
-caselle:
-  - id: tracce-1
-    tipo: traccia
-    slug: null
-    image: null
-  - id: tracce-2
-    tipo: traccia
-    slug: null
-    image: null
-  - id: tracciati-1
-    tipo: tracciato
-    slug: null
-    image: null
-  - id: tracciati-2
-    tipo: tracciato
-    slug: null
-    image: null
