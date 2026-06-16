@@ -1,4 +1,5 @@
 <script lang="ts">
+	import titoloUrl from '$lib/content/home/titolo.png?url';
 	import illustrazioneAltoSinistraUrl from '$lib/content/home/illustrazione-alto-sinistra.svg?url';
 	import illustrazioneAltoDestraUrl from '$lib/content/home/illustrazione-alto-destra.svg?url';
 	import illustrazioneBassoSinistraUrl from '$lib/content/home/illustrazione-basso-sinistra.svg?url';
@@ -39,6 +40,17 @@
 			height="425"
 			decoding="async"
 		/>
+		<div class="cover__title">
+			<img
+				class="cover__title-img"
+				src={titoloUrl}
+				alt="Tracce minori"
+				width="555"
+				height="321"
+				decoding="async"
+			/>
+			<p class="cover__subtitle">Storie che attraversano la città</p>
+		</div>
 	</div>
 </section>
 
@@ -53,6 +65,38 @@
 		width: min(100%, 72rem);
 		min-height: clamp(28rem, 78vh, 46rem);
 		margin: 0 auto;
+	}
+
+	.cover__title {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: clamp(0.35rem, 1.2vw, 0.65rem);
+		padding: clamp(5.5rem, 18vw, 9rem) clamp(1rem, 4vw, 2rem);
+		pointer-events: none;
+		text-align: center;
+	}
+
+	.cover__title-img {
+		display: block;
+		width: min(88%, 26rem);
+		height: auto;
+	}
+
+	.cover__subtitle {
+		margin: 0;
+		max-width: 24rem;
+		font-family: var(--font-sans);
+		font-size: clamp(0.68rem, 1.6vw, 0.9rem);
+		font-weight: 600;
+		line-height: 1.35;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: #0b1530;
 	}
 
 	.cover__illus {
