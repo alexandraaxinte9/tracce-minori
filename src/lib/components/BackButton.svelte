@@ -3,18 +3,26 @@
 
 	let {
 		href = '/',
-		theme = 'on-dark'
+		label = "Torna all'indice",
+		theme = 'on-dark',
+		align = 'left',
+		belowHeader = false
 	}: {
-		href?: '/';
+		href?: '/' | '/storia-di-francesco';
+		label?: string;
 		theme?: 'on-dark' | 'on-light';
+		align?: 'left' | 'right';
+		belowHeader?: boolean;
 	} = $props();
 </script>
 
 <a
 	class="back"
 	class:on-light={theme === 'on-light'}
+	class:right={align === 'right'}
+	class:below-header={belowHeader}
 	href={resolve(href)}
-	aria-label="Torna all'indice"
+	aria-label={label}
 >
 	<span aria-hidden="true">←</span>
 </a>
@@ -24,7 +32,7 @@
 		position: fixed;
 		top: 1.25rem;
 		left: 1.25rem;
-		z-index: 20;
+		z-index: 25;
 		width: 2.75rem;
 		height: 2.75rem;
 		border-radius: 999px;
@@ -37,6 +45,15 @@
 	}
 	.back:hover {
 		background: rgba(255, 255, 255, 0.08);
+	}
+
+	.back.right {
+		left: auto;
+		right: 1.25rem;
+	}
+
+	.back.below-header {
+		top: 5.5rem;
 	}
 
 	.back.on-light {

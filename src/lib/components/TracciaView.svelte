@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { TracciaContent } from '$lib/tracce/types';
 	import SiteHeader from './SiteHeader.svelte';
+	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 	import FrasiScroller from './FrasiScroller.svelte';
 
@@ -10,6 +11,12 @@
 
 <div class="traccia-page">
 	<SiteHeader />
+	<BackButton
+		href="/storia-di-francesco"
+		label="Torna alla storia di Francesco"
+		align="right"
+		belowHeader
+	/>
 	<div class="traccia">
 	<aside class="path-column" aria-hidden="true">
 		<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />

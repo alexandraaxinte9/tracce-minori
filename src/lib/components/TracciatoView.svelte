@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { TracciatoContent } from '$lib/tracciati/types';
 	import SiteHeader from './SiteHeader.svelte';
+	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 
 	let { tracciato }: { tracciato: TracciatoContent } = $props();
@@ -71,6 +72,14 @@
 	<div class="top-bar">
 		<SiteHeader />
 	</div>
+
+	<BackButton
+		href="/storia-di-francesco"
+		label="Torna alla storia di Francesco"
+		align="right"
+		belowHeader
+		theme="on-light"
+	/>
 
 	<div class="tracciato">
 	<aside class="path-layer" aria-hidden="true">
