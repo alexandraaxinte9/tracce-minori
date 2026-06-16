@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import type { AboutContent } from '$lib/about/types';
 	import AboutHeader from './AboutHeader.svelte';
 	import AboutPhotoOverlay from './AboutPhotoOverlay.svelte';
@@ -36,9 +37,9 @@
 	</section>
 
 	<div class="cta-wrap">
-		<button type="button" class="cta" disabled aria-disabled="true">
+		<a class="cta" href={resolve('/storia-di-francesco')}>
 			Scopri la storia di Francesco
-		</button>
+		</a>
 	</div>
 </div>
 
@@ -98,16 +99,15 @@
 	}
 
 	.cta {
-		appearance: none;
-		border: none;
+		display: inline-block;
+		text-decoration: none;
 		background: #0b1530;
 		color: #ffffff;
 		font: inherit;
 		font-size: 1rem;
 		padding: 0.85rem 1.75rem;
 		border-radius: 999px;
-		cursor: not-allowed;
-		opacity: 1;
+		cursor: pointer;
 	}
 
 	@media (max-width: 767px) {
