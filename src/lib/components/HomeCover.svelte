@@ -1,8 +1,8 @@
 <script lang="ts">
-	import illustrazioneAltoSinistraUrl from '$lib/content/home/illustrazione-alto-sinistra.svg';
-	import illustrazioneAltoDestraUrl from '$lib/content/home/illustrazione-alto-destra.svg';
-	import illustrazioneBassoSinistraUrl from '$lib/content/home/illustrazione-basso-sinistra.svg';
-	import illustrazioneBassoDestraUrl from '$lib/content/home/illustrazione-basso-destra.svg';
+	import illustrazioneAltoSinistraUrl from '$lib/content/home/illustrazione-alto-sinistra.svg?url';
+	import illustrazioneAltoDestraUrl from '$lib/content/home/illustrazione-alto-destra.svg?url';
+	import illustrazioneBassoSinistraUrl from '$lib/content/home/illustrazione-basso-sinistra.svg?url';
+	import illustrazioneBassoDestraUrl from '$lib/content/home/illustrazione-basso-destra.svg?url';
 </script>
 
 <section class="cover" aria-labelledby="cover-title">
