@@ -18,6 +18,7 @@
 	</aside>
 	<div class="text-column">
 		<FrasiScroller
+			fixed
 			titolo={traccia.titolo}
 			frasi={traccia.frasi}
 			onPathProgress={(p) => (progress = p)}
@@ -29,6 +30,7 @@
 <style>
 	.traccia-page {
 		height: 100vh;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		background: var(--color-bg, #0b1530);
@@ -64,18 +66,13 @@
 	}
 
 	@media (max-width: 767px) {
-		.traccia-page {
-			height: auto;
-			min-height: 100vh;
-		}
-
 		.traccia {
 			display: block;
 		}
 		.path-column {
 			position: fixed;
 			inset: 0;
-			height: 100vh;
+			height: 100%;
 			opacity: 0.22;
 			z-index: 0;
 			pointer-events: none;

@@ -8,11 +8,13 @@
 	let {
 		titolo,
 		frasi,
+		fixed = false,
 		onActiveIndex,
 		onPathProgress
 	}: {
 		titolo: string;
 		frasi: Frase[];
+		fixed?: boolean;
 		onActiveIndex?: (i: number) => void;
 		onPathProgress?: (p: number) => void;
 	} = $props();
@@ -26,6 +28,12 @@
 	]);
 
 	onMount(() => {
+		if (fixed) {
+			onPathProgress?.(0);
+			onActiveIndex?.(0);
+			return;
+		}
+
 		if (!scrollerEl) return;
 
 		let ticking = false;
@@ -82,17 +90,23 @@
 	});
 </script>
 
-<div class="scroller" bind:this={scrollerEl}>
-	{#each stops as stop, i (i)}
-		<section class="stop" data-index={i}>
-			{#if stop.type === 'titolo'}
-				<h2 class="copy titolo">{stop.text}</h2>
-			{:else}
-				<p class="orario">{stop.orario}</p>
-				<p class="copy frase">{stop.frase}</p>
-			{/if}
+<div class="scroller" class:fixed bind:this={scrollerEl}>
+	{#if fixed}
+		<section class="stop stop--fixed">
+			<h2 class="copy titolo">{titolo}</h2>
 		</section>
-	{/each}
+	{:else}
+		{#each stops as stop, i (i)}
+			<section class="stop" data-index={i}>
+				{#if stop.type === 'titolo'}
+					<h2 class="copy titolo">{stop.text}</h2>
+				{:else}
+					<p class="orario">{stop.orario}</p>
+					<p class="copy frase">{stop.frase}</p>
+				{/if}
+			</section>
+		{/each}
+	{/if}
 </div>
 
 <style>
@@ -134,5 +148,23 @@
 		font-size: 0.875rem;
 		opacity: calc(0.25 + 0.75 * var(--proximity));
 		transform: translateY(calc(8px * (1 - var(--proximity))));
+	}
+
+	.scroller.fixed {
+		overflow: hidden;
+		display: grid;
+		place-items: center;
+	}
+
+	.stop--fixed {
+		--proximity: 1;
+		min-height: auto;
+		padding: 2rem;
+		text-align: left;
+	}
+
+	.stop--fixed .copy {
+		opacity: 1;
+		transform: none;
 	}
 </style>
