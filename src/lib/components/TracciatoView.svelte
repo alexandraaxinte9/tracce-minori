@@ -89,6 +89,7 @@
 	<div class="tracciato">
 		<aside class="path-layer" aria-hidden="true">
 			<PercorsoAnimato
+				fit="contain"
 				variant="tracciato"
 				percorsoSvg={tracciato.percorsoSvg}
 				progress={scrollProgress}
@@ -147,7 +148,7 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		padding: 1rem;
+		padding: 1.5rem clamp(2rem, 12vw, 8rem) 1.5rem clamp(1rem, 6vw, 4rem);
 		pointer-events: none;
 	}
 
@@ -199,12 +200,14 @@
 	.foto {
 		margin: 0;
 		padding: 0.5rem 0.75rem;
+		display: flex;
+		justify-content: center;
 	}
 
 	.foto img {
 		display: block;
 		width: 100%;
-		max-width: 42rem;
+		max-width: 36rem;
 		margin: 0 auto;
 		height: auto;
 	}

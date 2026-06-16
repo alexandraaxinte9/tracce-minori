@@ -11,11 +11,13 @@
 	let {
 		percorsoSvg,
 		progress = 0,
-		variant = 'traccia'
+		variant = 'traccia',
+		fit = 'viewport'
 	}: {
 		percorsoSvg: string;
 		progress?: number;
 		variant?: 'traccia' | 'tracciato';
+		fit?: 'viewport' | 'contain';
 	} = $props();
 
 	const parsed = $derived(parsePercorsoSvg(percorsoSvg));
@@ -71,6 +73,7 @@
 
 <svg
 	class={variant}
+	class:fit-contain={fit === 'contain'}
 	viewBox={parsed.viewBox}
 	xmlns="http://www.w3.org/2000/svg"
 	aria-hidden="true"
@@ -108,6 +111,19 @@
 		width: auto;
 		max-width: 100%;
 		overflow: visible;
+	}
+
+	svg.fit-contain {
+		height: auto;
+		width: auto;
+		max-height: min(100%, 40rem);
+		max-width: min(72%, 15rem);
+		margin: 0 auto;
+	}
+
+	svg.tracciato.fit-contain {
+		max-width: min(68%, 14rem);
+		max-height: min(100%, 36rem);
 	}
 
 	svg.tracciato {

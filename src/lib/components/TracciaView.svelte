@@ -18,7 +18,7 @@
 	<BackButton label="Torna a Tracce minori" align="right" belowHeader />
 	<div class="traccia">
 		<aside class="path-column" aria-hidden="true">
-			<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />
+			<PercorsoAnimato fit="contain" percorsoSvg={traccia.percorsoSvg} {progress} />
 		</aside>
 		<div class="tracce-container" bind:this={tracceContainer}>
 			<FrasiScroller
@@ -48,15 +48,15 @@
 	}
 
 	.path-column {
-		display: grid;
-		place-items: center;
-		padding: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.5rem 2rem;
 		min-height: 0;
 	}
 
 	.path-column :global(svg) {
-		max-height: 100%;
-		width: auto;
+		flex-shrink: 0;
 	}
 
 	.tracce-container {
@@ -84,9 +84,18 @@
 		.path-column {
 			position: absolute;
 			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			opacity: 0.22;
 			z-index: 0;
 			pointer-events: none;
+			padding: 2rem 1rem;
+		}
+
+		.path-column :global(svg.fit-contain) {
+			max-width: min(55%, 12rem);
+			max-height: min(85%, 32rem);
 		}
 
 		.tracce-container {
