@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
+	import HomeCover from '$lib/components/HomeCover.svelte';
 	import FrancescoCasella from '$lib/components/FrancescoCasella.svelte';
 
 	type HubItem = {
@@ -19,10 +20,9 @@
 
 <div class="hub-page">
 	<SiteHeader />
+	<HomeCover />
 
 	<main class="hub">
-		<h1>Tracce minori</h1>
-
 	<section class="sezione" aria-labelledby="tracce-heading">
 		<h2 id="tracce-heading" class="titolo titolo--left">Tracce</h2>
 		<p class="intro">
@@ -62,19 +62,12 @@
 <style>
 	.hub-page {
 		min-height: 100vh;
-		background: var(--color-bg, #0b1530);
-		color: #ffffff;
 	}
 
 	.hub {
 		padding: clamp(1.5rem, 4vw, 3rem);
-	}
-
-	.hub h1 {
-		margin: 0 0 2rem;
-		font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-		font-weight: 600;
-		line-height: 1.15;
+		background: var(--color-bg, #0b1530);
+		color: #ffffff;
 	}
 
 	.sezione {
