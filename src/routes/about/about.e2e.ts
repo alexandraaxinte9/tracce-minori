@@ -20,5 +20,5 @@ test('about header links home and tracciati', async ({ page }) => {
 	await page.goto('/about');
 	await page.getByRole('navigation', { name: 'Principale' }).getByRole('link', { name: 'Tracciati' }).click();
 	await expect(page).toHaveURL(/\/$/);
-	await expect(page.getByRole('heading', { name: 'Tracce minori' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
 });

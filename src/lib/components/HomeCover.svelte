@@ -5,7 +5,7 @@
 	import illustrazioneBassoDestraUrl from '$lib/content/home/illustrazione-basso-destra.svg?url';
 </script>
 
-<section class="cover" aria-labelledby="cover-title">
+<section class="cover" aria-label="Copertina">
 	<div class="cover__stage">
 		<img
 			class="cover__illus cover__illus--alto-sinistra"
@@ -39,18 +39,12 @@
 			height="425"
 			decoding="async"
 		/>
-
-		<div class="cover__center">
-			<h1 id="cover-title" class="cover__titolo">Tracce minori</h1>
-			<p class="cover__tagline">Storie che attraversano la città</p>
-		</div>
 	</div>
 </section>
 
 <style>
 	.cover {
 		background: #ffffff;
-		color: #0b1530;
 		padding: clamp(0.75rem, 2.5vw, 2rem) clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
 	}
 
@@ -93,38 +87,6 @@
 		width: clamp(10rem, 30vw, 19rem);
 	}
 
-	.cover__center {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: clamp(0.75rem, 2vw, 1.25rem);
-		padding: clamp(6rem, 18vh, 10rem) clamp(1rem, 8vw, 4rem);
-		text-align: center;
-	}
-
-	.cover__titolo {
-		margin: 0;
-		max-width: min(100%, 34rem);
-		font-size: clamp(2.5rem, 8vw, 4.5rem);
-		font-weight: 400;
-		line-height: 0.95;
-		letter-spacing: 0.02em;
-		text-transform: uppercase;
-	}
-
-	.cover__tagline {
-		margin: 0;
-		max-width: 24rem;
-		font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		line-height: 1.4;
-		text-transform: uppercase;
-	}
-
 	@media (max-width: 767px) {
 		.cover__stage {
 			min-height: clamp(24rem, 68vh, 34rem);
@@ -144,10 +106,6 @@
 
 		.cover__illus--basso-destra {
 			width: clamp(7.5rem, 36vw, 13rem);
-		}
-
-		.cover__center {
-			padding-inline: clamp(0.5rem, 5vw, 1.5rem);
 		}
 	}
 </style>
