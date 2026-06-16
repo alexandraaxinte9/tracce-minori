@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
 	import type { TracciatoContent } from '$lib/tracciati/types';
+	import { lockPageScroll } from '$lib/scroll/lock-page-scroll';
 	import SiteHeader from './SiteHeader.svelte';
 	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
@@ -10,15 +10,21 @@
 
 	let scrollProgress = $state(0);
 	let activeDisegnoUrl = $state<string | null>(null);
+	let tracciatiContainer = $state<HTMLDivElement | undefined>();
+
+	lockPageScroll();
 
 	function handleScroll() {
-		const max = document.documentElement.scrollHeight - window.innerHeight;
-		scrollProgress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+		const root = tracciatiContainer;
+		if (!root) return;
+		const max = root.scrollHeight - root.clientHeight;
+		scrollProgress = max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0;
 	}
 
-	onMount(() => {
-		if (!browser) return;
+	$effect(() => {
+		if (!browser || !tracciatiContainer) return;
 
+		const root = tracciatiContainer;
 		const visibleRatios = new Map<string, number>();
 
 		function syncActiveDisegno() {
@@ -35,7 +41,7 @@
 		}
 
 		handleScroll();
-		window.addEventListener('scroll', handleScroll, { passive: true });
+		root.addEventListener('scroll', handleScroll, { passive: true });
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -51,18 +57,18 @@
 				syncActiveDisegno();
 			},
 			{
-				root: null,
+				root,
 				threshold: [0, 0.25, 0.5, 0.75, 1],
 				rootMargin: '-30% 0px -30% 0px'
 			}
 		);
 
-		for (const el of document.querySelectorAll<HTMLElement>('[data-foto-id]')) {
+		for (const el of root.querySelectorAll<HTMLElement>('[data-foto-id]')) {
 			observer.observe(el);
 		}
 
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			root.removeEventListener('scroll', handleScroll);
 			observer.disconnect();
 		};
 	});
@@ -95,7 +101,7 @@
 			</div>
 		{/if}
 
-		<div class="photos">
+		<div class="tracciati-container" bind:this={tracciatiContainer}>
 			{#if tracciato.fotos.length === 0}
 				<p class="empty">Foto in arrivo</p>
 			{:else}
@@ -110,20 +116,31 @@
 </div>
 
 <style>
+	.tracciato-page {
+		height: 100vh;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		background: #ffffff;
+		color: #0b1530;
+	}
+
 	.top-bar {
-		position: sticky;
-		top: 0;
+		flex-shrink: 0;
 		z-index: 20;
 	}
 
 	.tracciato {
+		position: relative;
+		flex: 1;
+		min-height: 0;
+		overflow: hidden;
 		background: #ffffff;
 		color: #0b1530;
-		min-height: 100vh;
 	}
 
 	.path-layer {
-		position: fixed;
+		position: absolute;
 		inset: 0;
 		z-index: 10;
 		display: flex;
@@ -135,7 +152,7 @@
 	}
 
 	.illustration-layer {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		right: 0;
 		bottom: 0;
@@ -166,9 +183,17 @@
 		}
 	}
 
-	.photos {
+	.tracciati-container {
 		position: relative;
 		z-index: 0;
+		height: 100%;
+		overflow-y: scroll;
+		overscroll-behavior: contain;
+		scrollbar-width: none;
+	}
+
+	.tracciati-container::-webkit-scrollbar {
+		display: none;
 	}
 
 	.foto {
@@ -185,7 +210,7 @@
 	}
 
 	.empty {
-		min-height: 200vh;
+		min-height: 100%;
 		display: grid;
 		place-items: center;
 		margin: 0;

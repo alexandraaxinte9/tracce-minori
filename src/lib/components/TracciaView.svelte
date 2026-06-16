@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { TracciaContent } from '$lib/tracce/types';
+	import { lockPageScroll } from '$lib/scroll/lock-page-scroll';
 	import SiteHeader from './SiteHeader.svelte';
 	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
@@ -7,6 +8,9 @@
 
 	let { traccia }: { traccia: TracciaContent } = $props();
 	let progress = $state(0);
+	let tracceContainer = $state<HTMLDivElement | undefined>();
+
+	lockPageScroll();
 </script>
 
 <div class="traccia-page">
@@ -16,8 +20,9 @@
 		<aside class="path-column" aria-hidden="true">
 			<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />
 		</aside>
-		<div class="text-column">
+		<div class="tracce-container" bind:this={tracceContainer}>
 			<FrasiScroller
+				scrollRoot={tracceContainer}
 				titolo={traccia.titolo}
 				frasi={traccia.frasi}
 				onPathProgress={(p) => (progress = p)}
@@ -29,6 +34,7 @@
 <style>
 	.traccia-page {
 		height: 100vh;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		background: var(--color-bg, #0b1530);
@@ -42,52 +48,51 @@
 	}
 
 	.path-column {
-		position: sticky;
-		top: 0;
-		height: 100%;
 		display: grid;
 		place-items: center;
 		padding: 2rem;
-	}
-
-	.path-column :global(svg) {
-		max-height: 90vh;
-		width: auto;
-	}
-
-	.text-column {
-		position: relative;
-		z-index: 2;
-		height: 100%;
 		min-height: 0;
 	}
 
-	.text-column :global(.scroller) {
+	.path-column :global(svg) {
+		max-height: 100%;
+		width: auto;
+	}
+
+	.tracce-container {
+		container-type: size;
 		height: 100%;
+		min-height: 0;
+		overflow-y: scroll;
+		overscroll-behavior: contain;
+		scroll-snap-type: y proximity;
+		scrollbar-width: none;
+		position: relative;
+		z-index: 2;
+	}
+
+	.tracce-container::-webkit-scrollbar {
+		display: none;
 	}
 
 	@media (max-width: 767px) {
-		.traccia-page {
-			height: auto;
-			min-height: 100vh;
-		}
-
 		.traccia {
 			display: block;
+			position: relative;
 		}
 
 		.path-column {
-			position: fixed;
+			position: absolute;
 			inset: 0;
-			height: 100vh;
 			opacity: 0.22;
 			z-index: 0;
 			pointer-events: none;
 		}
 
-		.text-column {
+		.tracce-container {
 			position: relative;
 			z-index: 1;
+			height: 100%;
 		}
 	}
 </style>

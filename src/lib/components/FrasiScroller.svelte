@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { scrollPathProgress, smoothstep } from '$lib/tracce/progress';
 	import type { Frase } from '$lib/tracce/types';
 
@@ -8,30 +7,34 @@
 	let {
 		titolo,
 		frasi,
+		scrollRoot = undefined,
 		onActiveIndex,
 		onPathProgress
 	}: {
 		titolo: string;
 		frasi: Frase[];
+		scrollRoot?: HTMLElement | undefined;
 		onActiveIndex?: (i: number) => void;
 		onPathProgress?: (p: number) => void;
 	} = $props();
 
 	let activeIndex = $state(0);
-	let scrollerEl: HTMLDivElement | undefined;
+	let contentEl: HTMLDivElement | undefined;
 
 	const stops = $derived<Stop[]>([
 		{ type: 'titolo', text: titolo },
 		...frasi.map((f) => ({ type: 'frase' as const, orario: f.orario, frase: f.frase }))
 	]);
 
-	onMount(() => {
-		if (!scrollerEl) return;
+	const usesExternalScroll = $derived(scrollRoot !== undefined);
+
+	$effect(() => {
+		const root = scrollRoot ?? contentEl;
+		if (!root) return;
 
 		let ticking = false;
 
 		const update = () => {
-			const root = scrollerEl!;
 			const centerY = root.scrollTop + root.clientHeight / 2;
 			const falloff = root.clientHeight * 0.62;
 			const stopEls = root.querySelectorAll<HTMLElement>('.stop');
@@ -67,12 +70,12 @@
 			});
 		};
 
-		scrollerEl.addEventListener('scroll', onScroll, { passive: true });
+		root.addEventListener('scroll', onScroll, { passive: true });
 		window.addEventListener('resize', onScroll, { passive: true });
 		update();
 
 		return () => {
-			scrollerEl?.removeEventListener('scroll', onScroll);
+			root.removeEventListener('scroll', onScroll);
 			window.removeEventListener('resize', onScroll);
 		};
 	});
@@ -82,7 +85,7 @@
 	});
 </script>
 
-<div class="scroller" bind:this={scrollerEl}>
+<div class="scroller" class:in-container={usesExternalScroll} bind:this={contentEl}>
 	{#each stops as stop, i (i)}
 		<section class="stop" data-index={i}>
 			{#if stop.type === 'titolo'}
@@ -104,6 +107,12 @@
 		scrollbar-width: none;
 	}
 
+	.scroller.in-container {
+		height: auto;
+		overflow: visible;
+		scroll-snap-type: none;
+	}
+
 	.scroller::-webkit-scrollbar {
 		display: none;
 	}
@@ -118,6 +127,11 @@
 		justify-content: center;
 		padding: 2rem 2rem 2rem 4rem;
 		box-sizing: border-box;
+	}
+
+	.in-container .stop {
+		min-height: 100cqh;
+		scroll-snap-align: center;
 	}
 
 	.copy {
