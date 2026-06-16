@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import SiteHeader from '$lib/components/SiteHeader.svelte';
 
 	let { data } = $props();
 </script>
@@ -8,7 +9,10 @@
 	<title>Tracce minori</title>
 </svelte:head>
 
-<main class="hub">
+<div class="hub-page">
+	<SiteHeader />
+
+	<main class="hub">
 	<h1>Tracce minori</h1>
 
 	<section class="section" aria-labelledby="tracce-heading">
@@ -34,11 +38,18 @@
 			{/each}
 		</ul>
 	</section>
-</main>
+	</main>
+</div>
 
 <style>
+	.hub-page {
+		min-height: 100vh;
+		background: var(--color-bg, #0b1530);
+		color: var(--color-text, #ffffff);
+	}
+
 	.hub {
-		padding: 4rem 2rem 3rem;
+		padding: 2.5rem 2rem 3rem;
 		max-width: 40rem;
 		margin: 0 auto;
 	}

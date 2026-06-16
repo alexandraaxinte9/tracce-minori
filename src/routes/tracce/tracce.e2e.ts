@@ -2,6 +2,9 @@ import { expect, test } from '@playwright/test';
 
 test('hub lists tracce and opens traccia-01', async ({ page }) => {
 	await page.goto('/');
+	await expect(page.getByRole('link', { name: 'Home' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'About' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Francesco' })).toBeVisible();
 	await expect(page.getByRole('heading', { name: 'Tracce minori' })).toBeVisible();
 	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
 	await page.getByRole('link', { name: /Traccia 01/i }).click();

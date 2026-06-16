@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { TracciaContent } from '$lib/tracce/types';
-	import BackButton from './BackButton.svelte';
+	import SiteHeader from './SiteHeader.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 	import FrasiScroller from './FrasiScroller.svelte';
 
@@ -8,8 +8,9 @@
 	let progress = $state(0);
 </script>
 
-<BackButton href="/" />
-<div class="traccia">
+<div class="traccia-page">
+	<SiteHeader />
+	<div class="traccia">
 	<aside class="path-column" aria-hidden="true">
 		<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />
 	</aside>
@@ -20,18 +21,27 @@
 			onPathProgress={(p) => (progress = p)}
 		/>
 	</div>
+	</div>
 </div>
 
 <style>
+	.traccia-page {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg, #0b1530);
+	}
+
 	.traccia {
+		flex: 1;
+		min-height: 0;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		min-height: 100vh;
 	}
 	.path-column {
 		position: sticky;
 		top: 0;
-		height: 100vh;
+		height: 100%;
 		display: grid;
 		place-items: center;
 		padding: 2rem;
@@ -43,8 +53,20 @@
 	.text-column {
 		position: relative;
 		z-index: 2;
+		height: 100%;
+		min-height: 0;
 	}
+
+	.text-column :global(.scroller) {
+		height: 100%;
+	}
+
 	@media (max-width: 767px) {
+		.traccia-page {
+			height: auto;
+			min-height: 100vh;
+		}
+
 		.traccia {
 			display: block;
 		}

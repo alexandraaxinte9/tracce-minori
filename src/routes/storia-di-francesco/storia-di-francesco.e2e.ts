@@ -12,13 +12,15 @@ test('francesco page shows hero, sections and four caselle', async ({ page }) =>
 
 test('francesco header links home and about', async ({ page }) => {
 	await page.goto('/storia-di-francesco');
+	await expect(page.getByRole('link', { name: 'Home' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'About' })).toBeVisible();
 	await page.getByRole('link', { name: 'Home' }).click();
 	await expect(page).toHaveURL(/\/$/);
 });
 
 test('about CTA navigates to francesco page', async ({ page }) => {
 	await page.goto('/about');
-	await page.getByRole('link', { name: /Francesco/i }).click();
+	await page.getByRole('link', { name: 'Scopri la storia di Francesco' }).click();
 	await expect(page).toHaveURL(/storia-di-francesco/);
 	await expect(page.getByRole('heading', { level: 1, name: 'La storia di Francesco' })).toBeVisible();
 });

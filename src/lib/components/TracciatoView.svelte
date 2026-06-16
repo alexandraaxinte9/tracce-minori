@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import type { TracciatoContent } from '$lib/tracciati/types';
-	import BackButton from './BackButton.svelte';
+	import SiteHeader from './SiteHeader.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 
 	let { tracciato }: { tracciato: TracciatoContent } = $props();
@@ -67,9 +67,12 @@
 	});
 </script>
 
-<BackButton href="/" theme="on-light" />
+<div class="tracciato-page">
+	<div class="top-bar">
+		<SiteHeader />
+	</div>
 
-<div class="tracciato">
+	<div class="tracciato">
 	<aside class="path-layer" aria-hidden="true">
 		<PercorsoAnimato
 			variant="tracciato"
@@ -95,9 +98,16 @@
 			{/each}
 		{/if}
 	</div>
+	</div>
 </div>
 
 <style>
+	.top-bar {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+	}
+
 	.tracciato {
 		background: #ffffff;
 		color: #0b1530;

@@ -7,7 +7,7 @@
 </script>
 
 <div class="francesco-page">
-	<SiteHeader />
+	<SiteHeader active="francesco" />
 
 	<section class="hero" aria-label="La storia di Francesco">
 		<div class="hero-text">
