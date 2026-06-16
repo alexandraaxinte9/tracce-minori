@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	let { active = 'none' }: { active?: 'about' | 'francesco' | 'none' } = $props();
+	let { active = 'none' }: { active?: 'about' | 'francesco' | 'tracciati' | 'none' } = $props();
 </script>
 
 <header class="nav">
@@ -21,7 +21,11 @@
 		{:else}
 			<a href={resolve('/storia-di-francesco')}>Francesco</a>
 		{/if}
-		<a href={resolve('/')}>Tracciati</a>
+		{#if active === 'tracciati'}
+			<span class="current" aria-current="page">Tracciati</span>
+		{:else}
+			<a href={resolve('/tracce')}>Tracciati</a>
+		{/if}
 	</nav>
 </header>
 

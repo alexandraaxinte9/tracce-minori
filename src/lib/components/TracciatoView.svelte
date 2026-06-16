@@ -80,6 +80,7 @@
 	</div>
 
 	<BackButton
+		href="/tracce"
 		label="Torna a Tracce minori"
 		align="right"
 		belowHeader

@@ -15,7 +15,7 @@
 
 <div class="traccia-page">
 	<SiteHeader />
-	<BackButton label="Torna a Tracce minori" align="right" belowHeader />
+	<BackButton href="/tracce" label="Torna a Tracce minori" align="right" belowHeader />
 	<div class="traccia">
 		<aside class="path-column" aria-hidden="true">
 			<PercorsoAnimato fit="contain" percorsoSvg={traccia.percorsoSvg} {progress} />

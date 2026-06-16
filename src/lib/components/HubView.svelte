@@ -1,6 +1,5 @@
 <script lang="ts">
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
-	import HomeCover from '$lib/components/HomeCover.svelte';
 	import FrancescoCasella from '$lib/components/FrancescoCasella.svelte';
 
 	type HubItem = {
@@ -19,8 +18,7 @@
 </script>
 
 <div class="hub-page">
-	<SiteHeader />
-	<HomeCover />
+	<SiteHeader active="tracciati" />
 
 	<main class="hub">
 	<section class="sezione" aria-labelledby="tracce-heading">

@@ -2,13 +2,13 @@
 	import { resolve } from '$app/paths';
 
 	let {
-		href = '/',
+		href = '/tracce',
 		label = "Torna all'indice",
 		theme = 'on-dark',
 		align = 'left',
 		belowHeader = false
 	}: {
-		href?: '/';
+		href?: '/' | '/tracce';
 		label?: string;
 		theme?: 'on-dark' | 'on-light';
 		align?: 'left' | 'right';
