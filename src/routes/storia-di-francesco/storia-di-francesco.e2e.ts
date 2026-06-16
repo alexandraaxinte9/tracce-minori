@@ -18,18 +18,6 @@ test('francesco tracce casella opens traccia page', async ({ page }) => {
 	await expect(page).toHaveURL(/traccia-01/);
 });
 
-test('traccia page back arrow returns to francesco', async ({ page }) => {
-	await page.goto('/tracce/traccia-01');
-	await page.getByRole('link', { name: 'Torna alla storia di Francesco' }).click();
-	await expect(page).toHaveURL(/storia-di-francesco/);
-});
-
-test('tracciato page back arrow returns to francesco', async ({ page }) => {
-	await page.goto('/tracciati/tracciati-01');
-	await page.getByRole('link', { name: 'Torna alla storia di Francesco' }).click();
-	await expect(page).toHaveURL(/storia-di-francesco/);
-});
-
 test('francesco header links home and about', async ({ page }) => {
 	await page.goto('/storia-di-francesco');
 	await expect(page.getByRole('link', { name: 'Home' })).toBeVisible();

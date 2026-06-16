@@ -11,12 +11,7 @@
 
 <div class="traccia-page">
 	<SiteHeader />
-	<BackButton
-		href="/storia-di-francesco"
-		label="Torna alla storia di Francesco"
-		align="right"
-		belowHeader
-	/>
+	<BackButton label="Torna a Tracce minori" align="right" belowHeader />
 	<div class="traccia">
 	<aside class="path-column" aria-hidden="true">
 		<PercorsoAnimato percorsoSvg={traccia.percorsoSvg} {progress} />

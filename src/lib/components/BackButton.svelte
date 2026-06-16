@@ -8,7 +8,7 @@
 		align = 'left',
 		belowHeader = false
 	}: {
-		href?: '/' | '/storia-di-francesco';
+		href?: '/';
 		label?: string;
 		theme?: 'on-dark' | 'on-light';
 		align?: 'left' | 'right';

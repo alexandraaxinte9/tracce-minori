@@ -74,8 +74,7 @@
 	</div>
 
 	<BackButton
-		href="/storia-di-francesco"
-		label="Torna alla storia di Francesco"
+		label="Torna a Tracce minori"
 		align="right"
 		belowHeader
 		theme="on-light"
