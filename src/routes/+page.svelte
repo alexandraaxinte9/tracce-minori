@@ -1,4 +1,4 @@
-</>  svelte
+
 
 <svelte:head>
 	<title>Tracce minori</title>
