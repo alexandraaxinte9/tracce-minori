@@ -1,21 +1,20 @@
 import { expect, test } from '@playwright/test';
 
-test('francesco page shows hero, sections and six caselle', async ({ page }) => {
+test('francesco page shows hero and link to tracce hub', async ({ page }) => {
 	await page.goto('/storia-di-francesco');
 	await expect(page.getByRole('heading', { level: 1, name: 'La storia di Francesco' })).toBeVisible();
 	await expect(page.getByText(/Francesco attraversa ogni giorno/i)).toBeVisible();
-	await expect(page.getByRole('heading', { name: 'Le sue tracce...' })).toBeVisible();
-	await expect(page.getByRole('heading', { name: 'e i suoi tracciati' })).toBeVisible();
-	await expect(page.locator('.casella')).toHaveCount(6);
-	await expect(page.locator('.casella--tracce svg')).toHaveCount(3);
-	await expect(page.locator('.casella--tracciati svg')).toHaveCount(3);
 	await expect(page.locator('.hero-art img')).toBeVisible();
+	const cta = page.getByRole('link', { name: 'Scopri le sue tracce e i suoi tracciati' });
+	await expect(cta).toBeVisible();
+	await expect(cta).toHaveAttribute('href', /\/tracce-e-tracciati\/?$/);
 });
 
-test('francesco tracce casella opens traccia page', async ({ page }) => {
+test('francesco CTA navigates to tracce hub', async ({ page }) => {
 	await page.goto('/storia-di-francesco');
-	await page.getByRole('link', { name: 'Apri Traccia 01' }).click();
-	await expect(page).toHaveURL(/traccia-01/);
+	await page.getByRole('link', { name: 'Scopri le sue tracce e i suoi tracciati' }).click();
+	await expect(page).toHaveURL(/\/tracce-e-tracciati\/?$/);
+	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
 });
 
 test('francesco header links home and about', async ({ page }) => {

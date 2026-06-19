@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import type { TracciatoContent } from '$lib/tracciati/types';
 	import { lockPageScroll } from '$lib/scroll/lock-page-scroll';
-	import SiteHeader from './SiteHeader.svelte';
 	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 
@@ -75,17 +74,7 @@
 </script>
 
 <div class="tracciato-page">
-	<div class="top-bar">
-		<SiteHeader />
-	</div>
-
-	<BackButton
-		href="/tracce"
-		label="Torna a Tracce minori"
-		align="right"
-		belowHeader
-		theme="on-light"
-	/>
+	<BackButton href="/tracce-e-tracciati" label="Torna a Tracce minori" theme="on-light" />
 
 	<div class="tracciato">
 		<aside class="path-layer" aria-hidden="true">
@@ -125,11 +114,6 @@
 		flex-direction: column;
 		background: #ffffff;
 		color: #0b1530;
-	}
-
-	.top-bar {
-		flex-shrink: 0;
-		z-index: 20;
 	}
 
 	.tracciato {

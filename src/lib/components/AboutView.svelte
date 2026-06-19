@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import type { AboutContent } from '$lib/about/types';
 	import AboutHeader from './AboutHeader.svelte';
 	import AboutPhotoOverlay from './AboutPhotoOverlay.svelte';
+	import CtaLink from './CtaLink.svelte';
 
 	let { about }: { about: AboutContent } = $props();
 </script>
@@ -37,9 +37,11 @@
 	</section>
 
 	<div class="cta-wrap">
-		<a class="cta" href={resolve('/storia-di-francesco')}>
-			Scopri la storia di Francesco
-		</a>
+		<CtaLink
+			href="/storia-di-francesco"
+			label="Scopri la storia di Francesco"
+			variant="navy"
+		/>
 	</div>
 </div>
 
@@ -96,18 +98,6 @@
 		display: grid;
 		place-items: center;
 		padding: 2rem 1.5rem 4rem;
-	}
-
-	.cta {
-		display: inline-block;
-		text-decoration: none;
-		background: #0b1530;
-		color: #ffffff;
-		font: inherit;
-		font-size: 1rem;
-		padding: 0.85rem 1.75rem;
-		border-radius: 999px;
-		cursor: pointer;
 	}
 
 	@media (max-width: 767px) {

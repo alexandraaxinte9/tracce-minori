@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FrancescoContent } from '$lib/francesco/types';
+	import CtaLink from './CtaLink.svelte';
 	import SiteHeader from './SiteHeader.svelte';
-	import FrancescoCasella from './FrancescoCasella.svelte';
 
 	let { francesco }: { francesco: FrancescoContent } = $props();
 </script>
@@ -10,59 +10,39 @@
 	<SiteHeader active="francesco" />
 
 	<section class="hero" aria-label="La storia di Francesco">
-		<div class="hero-text">
-			<h1>{francesco.titolo}</h1>
-			<p>{francesco.corpo}</p>
+		<div class="hero-copy">
+			<div class="hero-text">
+				<h1>{francesco.titolo}</h1>
+				<p>{francesco.corpo}</p>
+			</div>
+			<div class="cta-wrap">
+				<CtaLink href="/tracce-e-tracciati" label="Scopri le sue tracce e i suoi tracciati" />
+			</div>
 		</div>
 		<div class="hero-art">
 			<img src={francesco.illustrazioneUrl} alt="" />
-		</div>
-	</section>
-
-	<section class="sezione sezione--tracce" aria-label={francesco.titoloSezioneTracce}>
-		<h2 class="titolo titolo--left">{francesco.titoloSezioneTracce}</h2>
-		<div class="caselle caselle--tracce">
-			{#each francesco.caselleTracce as casella (casella.id)}
-				<FrancescoCasella
-					variant="tracce"
-					slug={casella.slug}
-					titolo={casella.titolo}
-					imageUrl={casella.imageUrl}
-					previewSvg={casella.previewSvg}
-				/>
-			{/each}
-		</div>
-	</section>
-
-	<section class="sezione sezione--tracciati" aria-label={francesco.titoloSezioneTracciati}>
-		<h2 class="titolo titolo--right">{francesco.titoloSezioneTracciati}</h2>
-		<div class="caselle caselle--tracciati">
-			{#each francesco.caselleTracciati as casella (casella.id)}
-				<FrancescoCasella
-					variant="tracciati"
-					slug={casella.slug}
-					titolo={casella.titolo}
-					imageUrl={casella.imageUrl}
-					previewSvg={casella.previewSvg}
-				/>
-			{/each}
 		</div>
 	</section>
 </div>
 
 <style>
 	.francesco-page {
-		min-height: 100vh;
 		background: var(--color-bg, #0b1530);
 		color: #ffffff;
 	}
 
 	.hero {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: clamp(1rem, 3vw, 2rem);
-		padding: clamp(1.5rem, 4vw, 3rem);
-		align-items: start;
+		--hero-pad: clamp(1.5rem, 4vw, 3rem);
+		--hero-gap: clamp(0.5rem, 1.5vw, 1rem);
+		position: relative;
+		padding: var(--hero-pad);
+	}
+
+	.hero-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		max-width: calc(50% - var(--hero-gap));
 	}
 
 	.hero-text {
@@ -87,58 +67,52 @@
 	}
 
 	.hero-art {
-		display: grid;
-		place-items: center;
-		margin-top: 1.5rem;
+		position: absolute;
+		top: var(--hero-pad);
+		right: var(--hero-pad);
+		bottom: var(--hero-pad);
+		left: calc(50% + var(--hero-gap));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 0;
+		pointer-events: none;
 	}
 
 	.hero-art img {
-		width: 100%;
-		max-width: 28rem;
+		display: block;
+		max-height: 100%;
+		max-width: 100%;
+		width: auto;
 		height: auto;
 		object-fit: contain;
 	}
 
-	.sezione {
-		padding: clamp(1.5rem, 4vw, 3rem);
+	.cta-wrap {
+		display: flex;
+		justify-content: flex-start;
 	}
 
-	.titolo {
-		margin: 0 0 1.25rem;
-		font-size: clamp(1.5rem, 3vw, 2rem);
-		font-weight: 600;
-		color: #2e3192;
-	}
-
-	.titolo--left {
-		text-align: left;
-	}
-
-	.titolo--right {
-		text-align: right;
-	}
-
-	.caselle {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: clamp(1rem, 3vw, 1.5rem);
+	.cta-wrap :global(.cta) {
+		pointer-events: auto;
 	}
 
 	@media (max-width: 767px) {
-		.hero {
-			grid-template-columns: 1fr;
+		.hero-copy {
+			max-width: none;
 		}
 
 		.hero-art {
-			margin-top: 0;
+			position: static;
+			display: grid;
+			place-items: center;
+			margin-top: 0.25rem;
+			pointer-events: auto;
 		}
 
-		.titolo--right {
-			text-align: left;
-		}
-
-		.caselle {
-			grid-template-columns: 1fr;
+		.hero-art img {
+			max-width: min(100%, 20rem);
+			max-height: 14rem;
 		}
 	}
 </style>

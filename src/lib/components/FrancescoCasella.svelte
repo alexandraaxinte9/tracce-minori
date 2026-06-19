@@ -49,17 +49,32 @@
 		border-radius: 1rem;
 		overflow: hidden;
 		text-decoration: none;
-		color: inherit;
+		color: #ffffff;
 		box-sizing: border-box;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.casella--tracce {
 		background: #2e3192;
 	}
 
+	.casella--tracce:hover {
+		background: #3d42a8;
+		box-shadow: 0 6px 20px rgba(46, 49, 146, 0.35);
+		transform: translateY(-4px);
+	}
+
 	.casella--tracciati {
-		background: transparent;
-		border: 1px solid rgba(255, 255, 255, 0.4);
+		background: #f26522;
+	}
+
+	.casella--tracciati:hover {
+		background: #ff7a3d;
+		box-shadow: 0 6px 20px rgba(242, 101, 34, 0.35);
+		transform: translateY(-4px);
 	}
 
 	.preview {
@@ -83,6 +98,10 @@
 		filter: brightness(0) invert(1);
 	}
 
+	.preview :global(svg path) {
+		stroke-width: 3.5;
+	}
+
 	.label {
 		font-size: 0.85rem;
 		font-weight: 600;
@@ -99,6 +118,16 @@
 		.casella {
 			aspect-ratio: auto;
 			min-height: 11rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.casella {
+			transition: none;
+		}
+
+		.casella:hover {
+			transform: none;
 		}
 	}
 </style>
