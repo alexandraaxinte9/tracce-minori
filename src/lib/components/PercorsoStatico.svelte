@@ -39,7 +39,7 @@
 	.path {
 		fill: none;
 		stroke: #e85d04;
-		stroke-width: 3;
+		stroke-width: 4;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}

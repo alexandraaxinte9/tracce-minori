@@ -39,7 +39,7 @@
 	</section>
 
 	<section class="sezione" aria-labelledby="tracciati-heading">
-		<h2 id="tracciati-heading" class="titolo titolo--right">Tracciati</h2>
+		<h2 id="tracciati-heading" class="titolo titolo--right titolo--orange">Tracciati</h2>
 		<p class="intro intro--right">
 			Foto e disegni lungo la linea: ciò che resta visibile del passaggio.
 		</p>
@@ -60,12 +60,13 @@
 <style>
 	.hub-page {
 		min-height: 100vh;
+		background: #ffffff;
 	}
 
 	.hub {
 		padding: clamp(1.5rem, 4vw, 3rem);
-		background: var(--color-bg, #0b1530);
-		color: #ffffff;
+		background: #ffffff;
+		color: #0b1530;
 	}
 
 	.sezione {
@@ -91,12 +92,17 @@
 		text-align: right;
 	}
 
+	.titolo--orange {
+		color: #f26522;
+	}
+
 	.intro {
 		margin: 0 0 1.5rem;
 		max-width: 28rem;
 		font-size: 1rem;
 		line-height: 1.5;
-		opacity: 0.75;
+		color: #000000;
+		text-wrap: balance;
 	}
 
 	.intro--right {

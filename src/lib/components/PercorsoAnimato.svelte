@@ -88,7 +88,7 @@
 	.path-todo {
 		stroke: var(--color-path-todo);
 		fill: none;
-		stroke-width: 2;
+		stroke-width: 3;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
@@ -96,7 +96,7 @@
 	.path-done {
 		stroke: var(--color-path-done);
 		fill: none;
-		stroke-width: 2;
+		stroke-width: 3;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
@@ -133,7 +133,7 @@
 
 	svg.tracciato .path-todo,
 	svg.tracciato .path-done {
-		stroke-width: 3;
+		stroke-width: 4;
 	}
 
 	svg.tracciato .marker {
