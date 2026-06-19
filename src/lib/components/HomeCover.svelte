@@ -118,21 +118,21 @@
 
 	/* Orange — top-left & top-right, inset toward center */
 	.cover__illus--alto-sinistra {
-		top: clamp(1.25rem, 5vh, 3rem);
-		left: clamp(1.25rem, 8vw, 5rem);
+		top: clamp(2rem, 7vh, 4.5rem);
+		left: clamp(2rem, 12vw, 7rem);
 		object-position: top left;
 	}
 
 	.cover__illus--alto-destra {
-		top: clamp(1.25rem, 5vh, 3rem);
-		right: clamp(1.25rem, 8vw, 5rem);
+		top: clamp(2rem, 7vh, 4.5rem);
+		right: clamp(2rem, 12vw, 7rem);
 		object-position: top right;
 	}
 
 	/* Blue — bottom-left & bottom-right, inset toward center */
 	.cover__illus--basso-sinistra {
-		bottom: clamp(1.25rem, 5vh, 3rem);
-		left: clamp(1.25rem, 8vw, 5rem);
+		bottom: clamp(2rem, 7vh, 4.5rem);
+		left: clamp(2rem, 12vw, 7rem);
 		width: clamp(13rem, 38vw, 26rem);
 		max-height: clamp(14rem, 36vh, 23rem);
 		object-position: bottom left;
@@ -162,18 +162,18 @@
 		}
 
 		.cover__illus--alto-sinistra {
-			top: clamp(0.75rem, 4vh, 2rem);
-			left: clamp(0.75rem, 6vw, 2.5rem);
+			top: clamp(1.25rem, 5vh, 2.75rem);
+			left: clamp(1.25rem, 10vw, 4rem);
 		}
 
 		.cover__illus--alto-destra {
-			top: clamp(0.75rem, 4vh, 2rem);
-			right: clamp(0.75rem, 6vw, 2.5rem);
+			top: clamp(1.25rem, 5vh, 2.75rem);
+			right: clamp(1.25rem, 10vw, 4rem);
 		}
 
 		.cover__illus--basso-sinistra {
-			bottom: clamp(0.75rem, 4vh, 2rem);
-			left: clamp(0.75rem, 6vw, 2.5rem);
+			bottom: clamp(1.25rem, 5vh, 2.75rem);
+			left: clamp(1.25rem, 10vw, 4rem);
 			width: clamp(10.5rem, 44vw, 18rem);
 			max-height: clamp(11rem, 30vh, 16rem);
 		}
