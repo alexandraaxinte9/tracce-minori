@@ -29,23 +29,22 @@
 
 <style>
 	.francesco-page {
-		min-height: 100vh;
 		background: var(--color-bg, #0b1530);
 		color: #ffffff;
 	}
 
 	.hero {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: clamp(1rem, 3vw, 2rem);
-		padding: clamp(1.5rem, 4vw, 3rem);
-		align-items: start;
+		--hero-pad: clamp(1.5rem, 4vw, 3rem);
+		--hero-gap: clamp(0.5rem, 1.5vw, 1rem);
+		position: relative;
+		padding: var(--hero-pad);
 	}
 
 	.hero-copy {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
+		max-width: calc(50% - var(--hero-gap));
 	}
 
 	.hero-text {
@@ -70,14 +69,23 @@
 	}
 
 	.hero-art {
-		display: grid;
-		place-items: center;
-		margin-top: 1.5rem;
+		position: absolute;
+		top: var(--hero-pad);
+		right: var(--hero-pad);
+		bottom: var(--hero-pad);
+		left: calc(50% + var(--hero-gap));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 0;
+		pointer-events: none;
 	}
 
 	.hero-art img {
-		width: 100%;
-		max-width: 28rem;
+		display: block;
+		max-height: 100%;
+		max-width: 100%;
+		width: auto;
 		height: auto;
 		object-fit: contain;
 	}
@@ -97,6 +105,7 @@
 		padding: 0.85rem 1.75rem;
 		border-radius: 999px;
 		cursor: pointer;
+		pointer-events: auto;
 	}
 
 	.cta:focus-visible {
@@ -105,12 +114,21 @@
 	}
 
 	@media (max-width: 767px) {
-		.hero {
-			grid-template-columns: 1fr;
+		.hero-copy {
+			max-width: none;
 		}
 
 		.hero-art {
-			margin-top: 0;
+			position: static;
+			display: grid;
+			place-items: center;
+			margin-top: 0.25rem;
+			pointer-events: auto;
+		}
+
+		.hero-art img {
+			max-width: min(100%, 20rem);
+			max-height: 14rem;
 		}
 	}
 </style>
