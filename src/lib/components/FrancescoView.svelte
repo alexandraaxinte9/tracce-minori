@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import type { FrancescoContent } from '$lib/francesco/types';
 	import SiteHeader from './SiteHeader.svelte';
-	import FrancescoCasella from './FrancescoCasella.svelte';
 
 	let { francesco }: { francesco: FrancescoContent } = $props();
 </script>
@@ -10,42 +10,19 @@
 	<SiteHeader active="francesco" />
 
 	<section class="hero" aria-label="La storia di Francesco">
-		<div class="hero-text">
-			<h1>{francesco.titolo}</h1>
-			<p>{francesco.corpo}</p>
+		<div class="hero-copy">
+			<div class="hero-text">
+				<h1>{francesco.titolo}</h1>
+				<p>{francesco.corpo}</p>
+			</div>
+			<div class="cta-wrap">
+				<a class="cta" href={resolve('/tracce')}>
+					Scopri le sue tracce e i suoi tracciati
+				</a>
+			</div>
 		</div>
 		<div class="hero-art">
 			<img src={francesco.illustrazioneUrl} alt="" />
-		</div>
-	</section>
-
-	<section class="sezione sezione--tracce" aria-label={francesco.titoloSezioneTracce}>
-		<h2 class="titolo titolo--left">{francesco.titoloSezioneTracce}</h2>
-		<div class="caselle caselle--tracce">
-			{#each francesco.caselleTracce as casella (casella.id)}
-				<FrancescoCasella
-					variant="tracce"
-					slug={casella.slug}
-					titolo={casella.titolo}
-					imageUrl={casella.imageUrl}
-					previewSvg={casella.previewSvg}
-				/>
-			{/each}
-		</div>
-	</section>
-
-	<section class="sezione sezione--tracciati" aria-label={francesco.titoloSezioneTracciati}>
-		<h2 class="titolo titolo--right">{francesco.titoloSezioneTracciati}</h2>
-		<div class="caselle caselle--tracciati">
-			{#each francesco.caselleTracciati as casella (casella.id)}
-				<FrancescoCasella
-					variant="tracciati"
-					slug={casella.slug}
-					titolo={casella.titolo}
-					imageUrl={casella.imageUrl}
-					previewSvg={casella.previewSvg}
-				/>
-			{/each}
 		</div>
 	</section>
 </div>
@@ -63,6 +40,12 @@
 		gap: clamp(1rem, 3vw, 2rem);
 		padding: clamp(1.5rem, 4vw, 3rem);
 		align-items: start;
+	}
+
+	.hero-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
 	}
 
 	.hero-text {
@@ -99,29 +82,26 @@
 		object-fit: contain;
 	}
 
-	.sezione {
-		padding: clamp(1.5rem, 4vw, 3rem);
+	.cta-wrap {
+		display: flex;
+		justify-content: flex-start;
 	}
 
-	.titolo {
-		margin: 0 0 1.25rem;
-		font-size: clamp(1.5rem, 3vw, 2rem);
-		font-weight: 600;
-		color: #2e3192;
+	.cta {
+		display: inline-block;
+		text-decoration: none;
+		background: #f26522;
+		color: #ffffff;
+		font: inherit;
+		font-size: 1rem;
+		padding: 0.85rem 1.75rem;
+		border-radius: 999px;
+		cursor: pointer;
 	}
 
-	.titolo--left {
-		text-align: left;
-	}
-
-	.titolo--right {
-		text-align: right;
-	}
-
-	.caselle {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: clamp(1rem, 3vw, 1.5rem);
+	.cta:focus-visible {
+		outline: 2px solid #ffffff;
+		outline-offset: 3px;
 	}
 
 	@media (max-width: 767px) {
@@ -131,14 +111,6 @@
 
 		.hero-art {
 			margin-top: 0;
-		}
-
-		.titolo--right {
-			text-align: left;
-		}
-
-		.caselle {
-			grid-template-columns: 1fr;
 		}
 	}
 </style>
