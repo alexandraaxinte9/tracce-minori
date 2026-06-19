@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import type { FrancescoContent } from '$lib/francesco/types';
+	import CtaLink from './CtaLink.svelte';
 	import SiteHeader from './SiteHeader.svelte';
 
 	let { francesco }: { francesco: FrancescoContent } = $props();
@@ -16,9 +16,7 @@
 				<p>{francesco.corpo}</p>
 			</div>
 			<div class="cta-wrap">
-				<a class="cta" href={resolve('/tracce')}>
-					Scopri le sue tracce e i suoi tracciati
-				</a>
+				<CtaLink href="/tracce" label="Scopri le sue tracce e i suoi tracciati" />
 			</div>
 		</div>
 		<div class="hero-art">
@@ -95,22 +93,8 @@
 		justify-content: flex-start;
 	}
 
-	.cta {
-		display: inline-block;
-		text-decoration: none;
-		background: #f26522;
-		color: #ffffff;
-		font: inherit;
-		font-size: 1rem;
-		padding: 0.85rem 1.75rem;
-		border-radius: 999px;
-		cursor: pointer;
+	.cta-wrap :global(.cta) {
 		pointer-events: auto;
-	}
-
-	.cta:focus-visible {
-		outline: 2px solid #ffffff;
-		outline-offset: 3px;
 	}
 
 	@media (max-width: 767px) {
