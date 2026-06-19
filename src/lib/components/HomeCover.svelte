@@ -24,17 +24,6 @@
 			height="340"
 			decoding="async"
 		/>
-		<div class="cover__title">
-			<img
-				class="cover__title-img"
-				src={titoloUrl}
-				alt="Tracce minori"
-				width="555"
-				height="321"
-				decoding="async"
-			/>
-			<p class="cover__subtitle">Storie che attraversano la città</p>
-		</div>
 		<img
 			class="cover__illus cover__illus--basso-sinistra"
 			src={illustrazioneBassoSinistraUrl}
@@ -51,6 +40,17 @@
 			height="425"
 			decoding="async"
 		/>
+		<div class="cover__title">
+			<img
+				class="cover__title-img"
+				src={titoloUrl}
+				alt="Tracce minori"
+				width="555"
+				height="321"
+				decoding="async"
+			/>
+			<p class="cover__subtitle">Storie che attraversano la città</p>
+		</div>
 	</div>
 </section>
 
@@ -65,21 +65,17 @@
 	}
 
 	.cover__stage {
+		position: relative;
 		flex: 1;
 		min-height: 0;
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, min-content) minmax(0, 1fr);
-		grid-template-rows: minmax(0, 1fr) minmax(0, min-content) minmax(0, 1fr);
 		width: 100%;
-		max-width: 72rem;
-		margin: 0 auto;
-		padding: 0 clamp(0.5rem, 2vw, 1.5rem);
+		overflow: hidden;
 	}
 
 	.cover__title {
-		grid-column: 2;
-		grid-row: 2;
-		z-index: 1;
+		position: absolute;
+		inset: 0;
+		z-index: 2;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -87,6 +83,7 @@
 		gap: clamp(0.25rem, 1vw, 0.5rem);
 		padding: clamp(0.5rem, 2vw, 1rem);
 		text-align: center;
+		pointer-events: none;
 	}
 
 	.cover__title-img {
@@ -108,46 +105,44 @@
 	}
 
 	.cover__illus {
+		position: absolute;
+		z-index: 1;
 		display: block;
 		height: auto;
 		width: auto;
-		max-width: 100%;
+		max-width: min(46vw, 20rem);
 		pointer-events: none;
 		user-select: none;
 	}
 
-	/* Orange — top row */
+	/* Orange — top-left & top-right */
 	.cover__illus--alto-sinistra {
-		grid-column: 1;
-		grid-row: 1;
-		align-self: end;
-		justify-self: end;
+		top: clamp(0.25rem, 1.5vh, 1rem);
+		left: clamp(0.25rem, 2vw, 1.5rem);
 		width: clamp(11rem, 30vw, 20rem);
+		max-width: min(42vw, 20rem);
 	}
 
 	.cover__illus--alto-destra {
-		grid-column: 3;
-		grid-row: 1;
-		align-self: end;
-		justify-self: start;
+		top: clamp(0.25rem, 1.5vh, 1rem);
+		right: clamp(0.25rem, 2vw, 1.5rem);
 		width: clamp(11rem, 28vw, 19rem);
+		max-width: min(42vw, 19rem);
 	}
 
-	/* Blue — bottom row */
+	/* Blue — bottom-left (notepad) & bottom-right (legs) */
 	.cover__illus--basso-sinistra {
-		grid-column: 1;
-		grid-row: 3;
-		align-self: start;
-		justify-self: end;
+		bottom: clamp(0.25rem, 1.5vh, 1rem);
+		left: clamp(0.25rem, 2vw, 1.5rem);
 		width: clamp(10rem, 26vw, 17rem);
+		max-width: min(40vw, 17rem);
 	}
 
 	.cover__illus--basso-destra {
-		grid-column: 3;
-		grid-row: 3;
-		align-self: start;
-		justify-self: start;
+		bottom: clamp(0.25rem, 1.5vh, 1rem);
+		right: clamp(0.25rem, 2vw, 1.5rem);
 		width: clamp(10rem, 27vw, 18rem);
+		max-width: min(40vw, 18rem);
 	}
 
 	@media (max-width: 767px) {
@@ -162,18 +157,22 @@
 
 		.cover__illus--alto-sinistra {
 			width: clamp(8rem, 36vw, 13rem);
+			max-width: 44vw;
 		}
 
 		.cover__illus--alto-destra {
 			width: clamp(7.5rem, 34vw, 12rem);
+			max-width: 44vw;
 		}
 
 		.cover__illus--basso-sinistra {
 			width: clamp(7rem, 32vw, 11rem);
+			max-width: 42vw;
 		}
 
 		.cover__illus--basso-destra {
 			width: clamp(7rem, 32vw, 11rem);
+			max-width: 42vw;
 		}
 	}
 </style>
