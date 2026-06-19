@@ -1,8 +1,13 @@
+<script lang="ts">
+	import CtaLink from '$lib/components/CtaLink.svelte';
+</script>
+
 <section class="cover" aria-label="Copertina">
 	<div class="cover__stage">
 		<div class="cover__title">
 			<h1 class="cover__heading">Tracce minori</h1>
 			<p class="cover__subtitle">Storie che attraversano la città</p>
+			<CtaLink href="/about" label="Scopri il progetto" />
 		</div>
 	</div>
 </section>
@@ -34,6 +39,10 @@
 		gap: clamp(0.25rem, 1vw, 0.6rem);
 		text-align: center;
 		max-width: min(82vw, calc(48rem - 5pt));
+	}
+
+	.cover__title :global(.cta) {
+		margin-top: clamp(0.75rem, 2vw, 1.5rem);
 	}
 
 	.cover__heading {
