@@ -74,7 +74,7 @@
 </script>
 
 <div class="tracciato-page">
-	<BackButton href="/tracce" label="Torna a Tracce minori" theme="on-light" />
+	<BackButton href="/tracce-e-tracciati" label="Torna a Tracce minori" theme="on-light" />
 
 	<div class="tracciato">
 		<aside class="path-layer" aria-hidden="true">

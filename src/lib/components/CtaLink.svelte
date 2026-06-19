@@ -6,7 +6,7 @@
 		label,
 		variant = 'orange'
 	}: {
-		href: '/' | '/tracce' | '/storia-di-francesco';
+		href: '/' | '/tracce-e-tracciati' | '/storia-di-francesco';
 		label: string;
 		variant?: 'orange' | 'navy';
 	} = $props();

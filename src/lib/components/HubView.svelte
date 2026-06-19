@@ -18,7 +18,7 @@
 </script>
 
 <div class="hub-page">
-	<SiteHeader active="tracciati" />
+	<SiteHeader active="tracce-e-tracciati" />
 
 	<main class="hub">
 	<section class="sezione" aria-labelledby="tracce-heading">

@@ -13,12 +13,15 @@ test('about page shows intro, sections and Francesco CTA link', async ({ page })
 	await expect(page.locator('.percorso-statico')).toHaveCount(2);
 });
 
-test('about header links home and tracciati', async ({ page }) => {
+test('about header links home and tracce e tracciati', async ({ page }) => {
 	await page.goto('/about');
 	await page.getByRole('link', { name: 'Home' }).click();
 	await expect(page).toHaveURL(/\/$/);
 	await page.goto('/about');
-	await page.getByRole('navigation', { name: 'Principale' }).getByRole('link', { name: 'Tracciati' }).click();
-	await expect(page).toHaveURL(/\/tracce\/?$/);
+	await page
+		.getByRole('navigation', { name: 'Principale' })
+		.getByRole('link', { name: 'Tracce e tracciati' })
+		.click();
+	await expect(page).toHaveURL(/\/tracce-e-tracciati\/?$/);
 	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
 });

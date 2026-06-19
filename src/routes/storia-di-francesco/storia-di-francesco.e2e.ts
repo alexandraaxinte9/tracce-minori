@@ -7,13 +7,13 @@ test('francesco page shows hero and link to tracce hub', async ({ page }) => {
 	await expect(page.locator('.hero-art img')).toBeVisible();
 	const cta = page.getByRole('link', { name: 'Scopri le sue tracce e i suoi tracciati' });
 	await expect(cta).toBeVisible();
-	await expect(cta).toHaveAttribute('href', /\/tracce\/?$/);
+	await expect(cta).toHaveAttribute('href', /\/tracce-e-tracciati\/?$/);
 });
 
 test('francesco CTA navigates to tracce hub', async ({ page }) => {
 	await page.goto('/storia-di-francesco');
 	await page.getByRole('link', { name: 'Scopri le sue tracce e i suoi tracciati' }).click();
-	await expect(page).toHaveURL(/\/tracce\/?$/);
+	await expect(page).toHaveURL(/\/tracce-e-tracciati\/?$/);
 	await expect(page.getByRole('heading', { name: 'Tracce', exact: true })).toBeVisible();
 });
 

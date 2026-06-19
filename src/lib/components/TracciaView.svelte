@@ -13,7 +13,7 @@
 </script>
 
 <div class="traccia-page">
-	<BackButton href="/tracce" label="Torna a Tracce minori" />
+	<BackButton href="/tracce-e-tracciati" label="Torna a Tracce minori" />
 	<div class="traccia">
 		<aside class="path-column" aria-hidden="true">
 			<PercorsoAnimato fit="contain" percorsoSvg={traccia.percorsoSvg} {progress} />

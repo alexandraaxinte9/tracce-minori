@@ -16,7 +16,7 @@
 				<p>{francesco.corpo}</p>
 			</div>
 			<div class="cta-wrap">
-				<CtaLink href="/tracce" label="Scopri le sue tracce e i suoi tracciati" />
+				<CtaLink href="/tracce-e-tracciati" label="Scopri le sue tracce e i suoi tracciati" />
 			</div>
 		</div>
 		<div class="hero-art">
