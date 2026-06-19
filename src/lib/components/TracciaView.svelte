@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { TracciaContent } from '$lib/tracce/types';
 	import { lockPageScroll } from '$lib/scroll/lock-page-scroll';
-	import SiteHeader from './SiteHeader.svelte';
 	import BackButton from './BackButton.svelte';
 	import PercorsoAnimato from './PercorsoAnimato.svelte';
 	import FrasiScroller from './FrasiScroller.svelte';
@@ -14,8 +13,7 @@
 </script>
 
 <div class="traccia-page">
-	<SiteHeader />
-	<BackButton href="/tracce" label="Torna a Tracce minori" align="right" belowHeader />
+	<BackButton href="/tracce" label="Torna a Tracce minori" />
 	<div class="traccia">
 		<aside class="path-column" aria-hidden="true">
 			<PercorsoAnimato fit="contain" percorsoSvg={traccia.percorsoSvg} {progress} />
