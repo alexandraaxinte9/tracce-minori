@@ -115,19 +115,23 @@
 		user-select: none;
 	}
 
-	/* Orange — top-left & top-right */
+	/* Orange — pinned to top corners, height-capped so they stay compact */
+	.cover__illus--alto-sinistra,
+	.cover__illus--alto-destra {
+		top: 0;
+		max-height: clamp(6.5rem, 16vh, 10rem);
+		width: auto;
+		max-width: clamp(5.5rem, 20vw, 10rem);
+		object-fit: contain;
+		object-position: top;
+	}
+
 	.cover__illus--alto-sinistra {
-		top: clamp(0.25rem, 1.5vh, 1rem);
-		left: clamp(0.25rem, 2vw, 1.5rem);
-		width: clamp(11rem, 30vw, 20rem);
-		max-width: min(42vw, 20rem);
+		left: clamp(0.25rem, 2vw, 1.25rem);
 	}
 
 	.cover__illus--alto-destra {
-		top: clamp(0.25rem, 1.5vh, 1rem);
-		right: clamp(0.25rem, 2vw, 1.5rem);
-		width: clamp(11rem, 28vw, 19rem);
-		max-width: min(42vw, 19rem);
+		right: clamp(0.25rem, 2vw, 1.25rem);
 	}
 
 	/* Blue — bottom-left (notepad) & bottom-right (legs) */
@@ -155,14 +159,10 @@
 			letter-spacing: 0.1em;
 		}
 
-		.cover__illus--alto-sinistra {
-			width: clamp(8rem, 36vw, 13rem);
-			max-width: 44vw;
-		}
-
+		.cover__illus--alto-sinistra,
 		.cover__illus--alto-destra {
-			width: clamp(7.5rem, 34vw, 12rem);
-			max-width: 44vw;
+			max-height: clamp(4.5rem, 12vh, 7rem);
+			max-width: clamp(4rem, 22vw, 6.5rem);
 		}
 
 		.cover__illus--basso-sinistra {
