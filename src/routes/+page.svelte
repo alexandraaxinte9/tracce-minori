@@ -1,9 +1,10 @@
-<script lang="ts">
-	import HomeView from '$lib/components/HomeView.svelte';
-</script>
+</>  svelte
 
 <svelte:head>
 	<title>Tracce minori</title>
 </svelte:head>
 
-<HomeView />
+<h1>Tracce minori</h1>
+
+<a href="/tracciati/tracciati-01">
+</a>
