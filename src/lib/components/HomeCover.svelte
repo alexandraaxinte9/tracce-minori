@@ -10,22 +10,6 @@
 	<div class="cover__stage">
 		<img
 			class="cover__illus cover__illus--alto-sinistra"
-			src={illustrazioneAltoSinistraUrl}
-			alt=""
-			width="407"
-			height="590"
-			decoding="async"
-		/>
-		<img
-			class="cover__illus cover__illus--alto-destra"
-			src={illustrazioneAltoDestraUrl}
-			alt=""
-			width="449"
-			height="340"
-			decoding="async"
-		/>
-		<img
-			class="cover__illus cover__illus--basso-sinistra"
 			src={illustrazioneBassoSinistraUrl}
 			alt=""
 			width="366"
@@ -33,11 +17,27 @@
 			decoding="async"
 		/>
 		<img
-			class="cover__illus cover__illus--basso-destra"
+			class="cover__illus cover__illus--alto-destra"
+			src={illustrazioneAltoSinistraUrl}
+			alt=""
+			width="407"
+			height="590"
+			decoding="async"
+		/>
+		<img
+			class="cover__illus cover__illus--basso-sinistra"
 			src={illustrazioneBassoDestraUrl}
 			alt=""
 			width="503"
 			height="425"
+			decoding="async"
+		/>
+		<img
+			class="cover__illus cover__illus--basso-destra"
+			src={illustrazioneAltoDestraUrl}
+			alt=""
+			width="449"
+			height="340"
 			decoding="async"
 		/>
 		<div class="cover__title">
@@ -108,9 +108,9 @@
 		position: absolute;
 		z-index: 1;
 		display: block;
-		width: clamp(7rem, 22vw, 13rem);
+		width: clamp(10rem, 28vw, 18rem);
 		height: auto;
-		max-height: clamp(8.5rem, 22vh, 14rem);
+		max-height: clamp(12rem, 32vh, 20rem);
 		object-fit: contain;
 		pointer-events: none;
 		user-select: none;
@@ -118,31 +118,31 @@
 
 	/* Orange — top-left & top-right */
 	.cover__illus--alto-sinistra {
-		top: clamp(0.25rem, 1.5vh, 0.75rem);
-		left: clamp(0.25rem, 2.5vw, 1.5rem);
+		top: clamp(0.25rem, 1vh, 0.5rem);
+		left: clamp(0.25rem, 2vw, 1.25rem);
 		object-position: top left;
 	}
 
 	.cover__illus--alto-destra {
-		top: clamp(0.25rem, 1.5vh, 0.75rem);
-		right: clamp(0.25rem, 2.5vw, 1.5rem);
-		width: clamp(7rem, 24vw, 14rem);
-		max-height: clamp(7.5rem, 18vh, 11rem);
+		top: clamp(0.25rem, 1vh, 0.5rem);
+		right: clamp(0.25rem, 2vw, 1.25rem);
 		object-position: top right;
 	}
 
 	/* Blue — bottom-left & bottom-right */
 	.cover__illus--basso-sinistra {
-		bottom: clamp(0.25rem, 1.5vh, 0.75rem);
-		left: clamp(0.25rem, 2.5vw, 1.5rem);
+		bottom: clamp(0.25rem, 1vh, 0.5rem);
+		left: clamp(0.25rem, 2vw, 1.25rem);
+		width: clamp(10rem, 30vw, 20rem);
+		max-height: clamp(10rem, 28vh, 17rem);
 		object-position: bottom left;
 	}
 
 	.cover__illus--basso-destra {
-		bottom: clamp(0.25rem, 1.5vh, 0.75rem);
-		right: clamp(0.25rem, 2.5vw, 1.5rem);
-		width: clamp(7rem, 24vw, 14rem);
-		max-height: clamp(7.5rem, 18vh, 11rem);
+		bottom: clamp(0.25rem, 1vh, 0.5rem);
+		right: clamp(0.25rem, 2vw, 1.25rem);
+		width: clamp(10rem, 30vw, 20rem);
+		max-height: clamp(10rem, 28vh, 17rem);
 		object-position: bottom right;
 	}
 
@@ -157,14 +157,14 @@
 		}
 
 		.cover__illus {
-			width: clamp(5.5rem, 28vw, 9rem);
-			max-height: clamp(6.5rem, 18vh, 10rem);
+			width: clamp(8rem, 34vw, 13rem);
+			max-height: clamp(9rem, 26vh, 14rem);
 		}
 
-		.cover__illus--alto-destra,
+		.cover__illus--basso-sinistra,
 		.cover__illus--basso-destra {
-			width: clamp(5.5rem, 30vw, 9.5rem);
-			max-height: clamp(6rem, 16vh, 9rem);
+			width: clamp(8rem, 36vw, 14rem);
+			max-height: clamp(8rem, 24vh, 12rem);
 		}
 	}
 </style>
