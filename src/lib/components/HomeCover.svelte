@@ -143,10 +143,10 @@
 	}
 
 	.cover__illus--basso-destra {
-		bottom: clamp(2.75rem, 9vh, 5.5rem);
-		right: clamp(2.75rem, 15vw, 9rem);
-		width: clamp(13rem, 38vw, 26rem);
-		max-height: clamp(14rem, 36vh, 23rem);
+		bottom: clamp(1.25rem, 5vh, 3rem);
+		right: clamp(1.25rem, 8vw, 5rem);
+		width: clamp(10rem, 30vw, 20rem);
+		max-height: clamp(10rem, 28vh, 17rem);
 		object-position: bottom right;
 	}
 
@@ -187,10 +187,10 @@
 		}
 
 		.cover__illus--basso-destra {
-			bottom: clamp(1.75rem, 6vh, 3.5rem);
-			right: clamp(1.75rem, 13vw, 5.5rem);
-			width: clamp(10.5rem, 44vw, 18rem);
-			max-height: clamp(11rem, 30vh, 16rem);
+			bottom: clamp(0.75rem, 4vh, 2rem);
+			right: clamp(0.75rem, 6vw, 2.5rem);
+			width: clamp(8rem, 34vw, 14rem);
+			max-height: clamp(8rem, 22vh, 12rem);
 		}
 	}
 </style>
